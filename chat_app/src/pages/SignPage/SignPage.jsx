@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import LoginForm from '@/components/reusable/LoginForm';
 import RegisterForm from '@/components/reusable/RegisterForm';
 import { motion } from 'framer-motion';
+import OTPInput from '@/components/reusable/OTPInput';
 
 const SignPage = () => {
     const [pageType, setPageType] = useState('Login');
@@ -24,13 +25,13 @@ const SignPage = () => {
                             key={type}
                             variant="ghost"
                             onClick={() => setPageType(type)}
-                            className={`relative z-10 py-2 w-24 ${
+                            className={`relative z-10 py-2 w-24  ${
                                 pageType === type 
                                     ? 'text-gray-100 hover:text-gray-100 hover:bg-transparent' 
                                     : 'text-gray-500 hover:text-gray-900 hover:bg-transparent'
                             }`}
                         >
-                            {type}
+                            {type === 'Login' ? 'Sign In' : 'Sign Up'}
                         </Button>
                     ))}
                 </div>

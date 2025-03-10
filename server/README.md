@@ -30,7 +30,7 @@ This repository contains the server-side code for the ChatApp project. The serve
 3. Create a `.env` file in the root directory and add your environment variables:
     ```env
     PORT=6000
-    MONGO_URL=your_mongodb_connection_string
+    MONGO_URL=mongodb+srv://username:password@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     JWT_SECRET=your_jwt_secret
     ```
 
@@ -217,7 +217,7 @@ export const verifyToken = (req, res, next) => {
         }
 
         if(token.startsWith("Bearer ")){
-            token = token.slice(7, token.length).trimLeft();
+            token = token.slice(7, token length).trimLeft();
         }
 
         const verified = jwt.verify(token, process.env.JWT_SECRET);

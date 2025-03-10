@@ -1,20 +1,19 @@
 import { useState } from 'react'
 import './App.css'
-import { Button } from './components/ui/button'
-import { ChevronRight } from "lucide-react"
-import BottomNav from './components/reusable/BottomNav'
-import TopBar from './components/reusable/TopBar'
-import RegisterForm from './components/reusable/RegisterForm'
-import SignPage from './pages/SignPage'
+import SignPage from './pages/SignPage/SignPage'
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage/HomePage'
+
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-     <SignPage/>
-    </>
+   <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignPage />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
+   </BrowserRouter>
   )
 }
 

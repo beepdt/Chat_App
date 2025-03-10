@@ -122,3 +122,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  src: url('./assets/fonts/generalSansMedium.otf') format('opentype');
+  font-family: 'General Sans';
+  font-style: normal;
+  font-weight: 400;
+}
+ body {
+  font-family: 'General Sans', sans-serif;
+}
+
+@font-face {
+  font-family: 'Nohemi';  
+  src: url('./assets/fonts/nohemiBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: bold;
+}
+ .font-nohemi {
+  font-family: 'Nohemi', sans-serif;
+}
