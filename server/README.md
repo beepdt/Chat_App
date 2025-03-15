@@ -121,6 +121,18 @@ The server provides various API endpoints for user authentication and file uploa
     }
     ```
 
+### Like a Post
+
+- **Endpoint**: `/posts/:id/like`
+- **Method**: `PATCH`
+- **Description**: Likes a post.
+- **Headers**: 
+    ```json
+    {
+      "Authorization": "Bearer <token>"
+    }
+    ```
+
 ## Models
 
 ### User Model
@@ -135,7 +147,7 @@ The `User` model is defined in `server/models/user.js` and represents a user in 
 - `verifyOTPExpires`: A date indicating when the verification OTP expires (default: current date).
 - `resetOTP`: A string for storing the OTP used for password reset (default: "").
 - `resetOTPExpires`: A date indicating when the reset OTP expires (default: current date).
-- `picturePath`: A string representing the path to the user's profile picture (default: "").
+- `picturePath`: A string representing the path to the user's profile picture (default: "https://github.com/yourusername/yourrepo/blob/main/path/to/default/image.jpg?raw=true").
 - `friends`: An array of friends (default: []).
 
 The schema also includes timestamps for `createdAt` and `updatedAt`.
@@ -184,7 +196,7 @@ const userSchema = new mongoose.Schema(
     },
     picturePath: {
       type: String,
-      default: "",
+      default: "https://github.com/yourusername/yourrepo/blob/main/path/to/default/image.jpg?raw=true",
     },
     friends: {
       type: Array,
@@ -197,6 +209,50 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.model("User", userSchema);
 
 export default User;
+```
+
+### Post Model
+
+The `Post` model is defined in `server/models/post.js` and represents a post in the application. It includes the following fields:
+
+- `userId`: A string representing the ID of the user who created the post (required).
+- `description`: A string representing the description of the post.
+- `picturePath`: A string representing the path to the post's picture.
+- `likes`: An array of user IDs who liked the post (default: []).
+- `comments`: An array of comments on the post (default: []).
+
+The schema also includes timestamps for `createdAt` and `updatedAt`.
+
+```javascript
+import mongoose from "mongoose";
+
+const postSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    picturePath: {
+      type: String,
+    },
+    likes: {
+      type: Array,
+      default: [],
+    },
+    comments: {
+      type: Array,
+      default: [],
+    },
+  },
+  { timestamps: true }
+);
+
+const Post = mongoose.model("Post", postSchema);
+
+export default Post;
 ```
 
 ## Middleware
@@ -217,7 +273,7 @@ export const verifyToken = (req, res, next) => {
         }
 
         if(token.startsWith("Bearer ")){
-            token = token.slice(7, token length).trimLeft();
+            token = token.slice(7, token.length).trimLeft();
         }
 
         const verified = jwt.verify(token, process.env.JWT_SECRET);
@@ -356,6 +412,76 @@ export const addRemoveFriend = async (req, res) => {
 }
 ```
 
+### Posts Controller
+
+The `posts` controller is defined in `server/controllers/posts.js` and handles posts-related operations.
+
+```javascript
+import Post from '../models/post.js';
+import User from '../models/user.js';
+
+export const getFeedPosts = async (req, res) => {
+    try {
+        const posts = await Post.find();
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const getUserPosts = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const posts = await Post.find({ userId });
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const likePosts = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
+        const post = await Post.findById(id);
+        const isLiked = post.likes.includes(userId);
+
+        if (isLiked) {
+            post.likes = post.likes.filter((id) => id !== userId);
+        } else {
+            post.likes.push(userId);
+        }
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { likes: post.likes },
+            { new: true }
+        );
+
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const createPost = async (req, res) => {
+    try {
+        const { userId, description, picturePath } = req.body;
+        const newPost = new Post({
+            userId,
+            description,
+            picturePath,
+            likes: [],
+            comments: [],
+        });
+        await newPost.save();
+        res.status(201).json(newPost);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+```
+
 ## Routes
 
 ### Auth Routes
@@ -398,7 +524,7 @@ The `posts` routes are defined in `server/routes/posts.js` and handle posts-rela
 
 ```javascript
 import express from "express";
-import { getFeedPosts, getUserPosts, likePosts } from "../controllers/posts.js";
+import { getFeedPosts, getUserPosts, likePosts, createPost } from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -406,6 +532,7 @@ const router = express.Router();
 router.get("/", verifyToken, getFeedPosts);
 router.get("/:userId/posts", verifyToken, getUserPosts);
 router.patch("/:id/like", verifyToken, likePosts);
+router.post("/", verifyToken, createPost);
 
 export default router;
 ```

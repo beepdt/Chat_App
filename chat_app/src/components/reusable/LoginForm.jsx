@@ -34,10 +34,10 @@ const LoginForm = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-md mx-auto p-6 bg-white rounded shadow"
+            className="max-w-lg mx-auto p-6 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow"
           >
             <div className="mb-6">
-              <Label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <Label htmlFor="username" className="block text-lg font-medium text-gray-700">
                 Username
               </Label>
               <Field
@@ -45,14 +45,14 @@ const LoginForm = () => {
                 name="username"
                 type="text"
                 placeholder="Enter your username"
-                className="mt-1 block w-full"
+                className="mt-1 block w-full mb-8"
                 as={Input}
               />
               <ErrorMessage name="username" component="div" className="text-red-500" />
             </div>
 
             <div className="mb-6">
-              <Label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <Label htmlFor="password" className="block text-lg font-medium text-gray-700">
                 Password
               </Label>
               <Field
@@ -60,7 +60,7 @@ const LoginForm = () => {
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                className="mt-1 block w-full"
+                className="mt-1 block w-full mb-8"
                 as={Input}
               />
               <ErrorMessage name="password" component="div" className="text-red-500" />

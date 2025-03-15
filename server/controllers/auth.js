@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt'; // Import bcrypt for hashing passwords
 import jwt from 'jsonwebtoken'; // Import jsonwebtoken for creating JWT tokens
 import User from '../models/user.js'; // Import User model
 
+
+
+
 // Register a new user
 export const register = async (req, res) => {
   try {
@@ -13,6 +16,13 @@ export const register = async (req, res) => {
         picturePath,
         friends,
     } = req.body;
+
+    //generate otp
+
+    //send otp to email
+    //sendEmail(email, otp, 'verify');
+    //verify otp
+
     
     // Generate a salt for hashing the password
     const salt = await bcrypt.genSalt();
@@ -26,6 +36,7 @@ export const register = async (req, res) => {
         password: hashedPassword,
         picturePath,
         friends,
+
     });
     
     // Save the new user to the database

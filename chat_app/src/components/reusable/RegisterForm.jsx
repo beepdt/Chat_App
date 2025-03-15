@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import OTPInput from "./OTPInput";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -26,9 +27,18 @@ const RegisterForm = () => {
     setSubmitting(false);
   };
 
+  const [formValues, setFormValues] = React.useState(initialValues);
+
+  const [otp, setOtp] = React.useState(false);
+  const [pageType, setPageType] = React.useState("Register");
+
   return (
-    <Formik
-      initialValues={initialValues}
+    <>
+    {pageType === "OTP" ? (
+      <OTPInput />
+    ) : ( 
+      <Formik
+      initialValues={formValues}
       validationSchema={registerSchema}
       onSubmit={handleSubmit}
     >
@@ -38,10 +48,10 @@ const RegisterForm = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto p-8 bg-white rounded shadow"
+            className="max-w-lg mx-auto p-8 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow"
           >
             <div className="mb-4">
-              <Label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <Label htmlFor="username" className="block text-lg font-medium text-gray-700">
                 Username
               </Label>
               <Field
@@ -49,14 +59,14 @@ const RegisterForm = () => {
                 name="username"
                 type="text"
                 placeholder="Enter your username"
-                className="mt-1 block w-full"
+                className="mt-1 block w-full mb-8"
                 as={Input}
               />
               <ErrorMessage name="username" component="div" className="text-red-500" />
             </div>
 
             <div className="mb-4">
-              <Label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <Label htmlFor="email" className="block text-lg font-medium text-gray-700">
                 Email
               </Label>
               <Field
@@ -64,14 +74,14 @@ const RegisterForm = () => {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                className="mt-1 block w-full"
+                className="mt-1 block w-full mb-8"
                 as={Input}
               />
               <ErrorMessage name="email" component="div" className="text-red-500" />
             </div>
 
             <div className="mb-4">
-              <Label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <Label htmlFor="password" className="block text-lg font-medium text-gray-700">
                 Password
               </Label>
               <Field
@@ -79,32 +89,16 @@ const RegisterForm = () => {
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                className="mt-1 block w-full"
+                className="mt-1 block w-full mb-8"
                 as={Input}
               />
               <ErrorMessage name="password" component="div" className="text-red-500" />
             </div>
 
-            <div className="mb-4">
-              <Label htmlFor="profilePicture" className="block text-sm font-medium text-gray-700">
-                Profile Picture
-              </Label>
-              <input
-                id="profilePicture"
-                name="profilePicture"
-                type="file"
-                accept="image/*"
-                className="mt-1 block w-full"
-                onChange={(event) => {
-                  setFieldValue("profilePicture", event.currentTarget.files[0]);
-                }}
-                as={Input}
-              />
-              <ErrorMessage name="profilePicture" component="div" className="text-red-500" />
-            </div>
+            
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button type="submit" className="w-full font-nohemi text-lg" disabled={isSubmitting}>
+              <Button type="submit" className="w-full font-nohemi text-lg" onClick={() => setPageType("Register")}>
                 Sign Up
               </Button>
             </motion.div>
@@ -112,6 +106,9 @@ const RegisterForm = () => {
         </Form>
       )}
     </Formik>
+    )
+    }
+    </>
   );
 };
 
