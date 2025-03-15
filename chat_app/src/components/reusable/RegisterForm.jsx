@@ -5,44 +5,56 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import OTPInput from "./OTPInput";
+import { setLogin } from './../../state';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
   email: yup.string().email("Email is invalid").required("Email is required"),
   password: yup.string().required("Password is required"),
-  profilePicture: yup.mixed().required("Profile picture is required"),
 });
 
 const initialValues = {
   username: "",
   email: "",
   password: "",
-  profilePicture: null,
 };
 
 const RegisterForm = () => {
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
+      const savedUser = await response.json();
+      resetForm();
+      dispatch(setLogin({ user: savedUser }));
+      navigate("/home");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
-  const [formValues, setFormValues] = React.useState(initialValues);
-
-  const [otp, setOtp] = React.useState(false);
-  const [pageType, setPageType] = React.useState("Register");
-
   return (
-    <>
-    {pageType === "OTP" ? (
-      <OTPInput />
-    ) : ( 
-      <Formik
-      initialValues={formValues}
+    <Formik
+      initialValues={initialValues}
       validationSchema={registerSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting, setFieldValue }) => (
+      {({ values, errors, touched, handleChange, handleBlur }) => (
         <Form>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -51,6 +63,9 @@ const RegisterForm = () => {
             className="max-w-lg mx-auto p-8 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow"
           >
             <div className="mb-4">
+              <div className="font-nohemi text-3xl mb-4">
+                Become a Yapper
+              </div>
               <Label htmlFor="username" className="block text-lg font-medium text-gray-700">
                 Username
               </Label>
@@ -61,6 +76,9 @@ const RegisterForm = () => {
                 placeholder="Enter your username"
                 className="mt-1 block w-full mb-8"
                 as={Input}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
               />
               <ErrorMessage name="username" component="div" className="text-red-500" />
             </div>
@@ -76,6 +94,9 @@ const RegisterForm = () => {
                 placeholder="Enter your email"
                 className="mt-1 block w-full mb-8"
                 as={Input}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
               />
               <ErrorMessage name="email" component="div" className="text-red-500" />
             </div>
@@ -91,14 +112,15 @@ const RegisterForm = () => {
                 placeholder="Enter your password"
                 className="mt-1 block w-full mb-8"
                 as={Input}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
               />
               <ErrorMessage name="password" component="div" className="text-red-500" />
             </div>
 
-            
-
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button type="submit" className="w-full font-nohemi text-lg" onClick={() => setPageType("Register")}>
+              <Button type="submit" className="w-full font-nohemi text-lg">
                 Sign Up
               </Button>
             </motion.div>
@@ -106,9 +128,6 @@ const RegisterForm = () => {
         </Form>
       )}
     </Formik>
-    )
-    }
-    </>
   );
 };
 

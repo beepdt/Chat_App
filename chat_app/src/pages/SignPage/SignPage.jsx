@@ -3,21 +3,12 @@ import { Button } from '@/components/ui/button'; // Importing Button component
 import LoginForm from '@/components/reusable/LoginForm'; // Importing LoginForm component
 import RegisterForm from '@/components/reusable/RegisterForm'; // Importing RegisterForm component
 import { motion } from 'framer-motion'; // Importing motion from framer-motion for animations
-import OTPInput from '@/components/reusable/OTPInput'; // Importing OTPInput component
 import SignImg from '../../assets/img/img1.jpg' // Importing image for the sign-in page
 import { Label } from '@/components/ui/label'; // Importing Label component
 import { Input } from '@/components/ui/input'; // Importing Input component
 
 const SignPage = () => {
     const [pageType, setPageType] = useState('Login'); // State to toggle between Login and Register forms
-    const [isOTP, setIsOTP] = useState(false); // State to toggle to OTP input
-
-    const handleRegisterSubmit = (formData) => {
-        // Assuming formData contains all the fields from the RegisterForm
-        if (formData.email && formData.password && formData.confirmPassword) {
-            setIsOTP(true); // Change to OTP input when all fields are filled
-        }
-    };
 
     return (
         <div className="flex max-w-full w-full h-screen mx-auto relative z-10 gap-4 p-4 md:py-8 md:pr-4 bg-black">
@@ -46,10 +37,7 @@ const SignPage = () => {
                             <Button
                                 key={type}
                                 variant="ghost"
-                                onClick={() => {
-                                    setPageType(type);
-                                    setIsOTP(false); // Reset OTP state when switching forms
-                                }}
+                                onClick={() => setPageType(type)}
                                 className={`relative z-10 py-2 w-24 ${
                                     pageType === type 
                                         ? 'text-gray-100 hover:text-gray-100 hover:bg-transparent' 
@@ -61,18 +49,7 @@ const SignPage = () => {
                         ))}
                     </div>
                 </div>
-                {isOTP ? (
-                    <div className="flex flex-col items-center">
-                        <Label htmlFor="otp" className="mb-2">Enter OTP</Label>
-                        <OTPInput numInputs={6} separator={<span>-</span>} />
-                    </div>
-                ) : (
-                    pageType === 'Login' ? (
-                        <LoginForm />
-                    ) : (
-                        <RegisterForm onSubmit={handleRegisterSubmit} />
-                    )
-                )}
+                {pageType === 'Login' ? <LoginForm /> : <RegisterForm />}
             </div>
         </div>
     );
