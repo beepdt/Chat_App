@@ -8,17 +8,20 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setLogin } from './../../state';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
   email: yup.string().email("Email is invalid").required("Email is required"),
   password: yup.string().required("Password is required"),
+  gender: yup.string().required("What are you ?")
 });
 
 const initialValues = {
   username: "",
   email: "",
   password: "",
+  gender: "robot"
 };
 
 const RegisterForm = () => {
@@ -54,7 +57,7 @@ const RegisterForm = () => {
       validationSchema={registerSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, errors, touched, handleChange, handleBlur }) => (
+      {({ values, errors, touched, handleChange, handleBlur,setFieldValue }) => (
         <Form>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -117,6 +120,29 @@ const RegisterForm = () => {
                 value={values.password}
               />
               <ErrorMessage name="password" component="div" className="text-red-500" />
+            </div>
+
+            <div className="mb-4">
+              <Label className="block text-lg font-medium text-gray-700">
+                What are you?
+              </Label>
+              <RadioGroup
+                value={values.gender}
+                onValueChange={(value) => setFieldValue("gender", value)}
+                className="mt-2"
+                >
+                <div className="flex items-center space-x-4">
+                    <RadioGroupItem value="male" id="male" />
+                    <Label htmlFor="male">Male</Label>
+
+                    <RadioGroupItem value="female" id="female" />
+                    <Label htmlFor="female">Female</Label>
+
+                    <RadioGroupItem value="robot" id="robot" />
+                    <Label htmlFor="robot">Robot</Label>
+                  </div>
+              </RadioGroup>
+              <ErrorMessage name="gender" component="div" className="text-red-500" />
             </div>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

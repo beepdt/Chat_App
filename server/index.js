@@ -34,7 +34,7 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use(morgan("common"));
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
 
 
 /*FILE STORAGE MULTER */
@@ -54,7 +54,7 @@ app.post("/posts",verifyToken, upload.single("picture"), createPost);
 
 /*ROUTES */
 app.use("/auth", authRoute);
-app.use("user", userRoute);
+app.use("/users", userRoute);
 app.use("/posts", postRoute);
 
 /*DATABASE CONNECTION */

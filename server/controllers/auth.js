@@ -15,10 +15,20 @@ export const register = async (req, res) => {
         password,
         picturePath,
         friends,
+        gender,
     } = req.body;
 
+    let profilePicture = "";
     //generate otp
-
+    if(gender === "male"){
+      profilePicture = "man.png"
+    }
+    else if(gender === "female"){
+      profilePicture= "girl.png"
+    }
+    else {
+      profilePicture = "robot.png"
+    }
     //send otp to email
     //sendEmail(email, otp, 'verify');
     //verify otp
@@ -34,7 +44,7 @@ export const register = async (req, res) => {
         username,
         email,
         password: hashedPassword,
-        picturePath,
+        picturePath: profilePicture,
         friends,
 
     });

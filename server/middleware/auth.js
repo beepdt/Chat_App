@@ -4,7 +4,7 @@ export const verifyToken = (req, res, next) => {
 
     // Get the token from the request headers
     try {
-        let token = req.headers("Authorization");
+        let token = req.header("Authorization");
 
         // Check if the token exists
         if (!token) {
