@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Home, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function BottomNav() {
+export default function BottomNav({activePage, setPageType}) {
   // State to track the currently active button (default is "home")
-  const [active, setActive] = useState("home");
+  
  
 
   return (
@@ -17,11 +17,11 @@ export default function BottomNav() {
       <Button 
         variant="ghost" 
         size="icon" 
-        onClick={() => setActive("home")}
+        onClick={() => setPageType("home")}
         // Override hover, active, and focus background with transparent so it doesn't change on hover.
         className="relative z-10 hover:bg-transparent active:bg-transparent focus:bg-transparent"
       >
-        {active === "home" && (
+        {activePage === "home" && (
           // Animated active indicator with a bright color
           <motion.div
             layoutId="activeIndicator"
@@ -32,18 +32,18 @@ export default function BottomNav() {
         )}
         {/* Home icon:
             - Shows dark (text-gray-900) when active, light (text-gray-300) when inactive */}
-        <Home className={`w-6 h-6 relative ${active === "home" ? "text-gray-900" : "text-gray-300"}`} />
+        <Home className={`w-6 h-6 relative ${activePage === "home" ? "text-gray-900" : "text-gray-300"}`} />
       </Button>
       
       {/* Chat Button */}
       <Button 
         variant="ghost" 
         size="icon" 
-        onClick={() => setActive("chat")}
+        onClick={() => setPageType("chat")}
         // Also override hover and active backgrounds to stay transparent.
         className="relative z-10 hover:bg-transparent active:bg-transparent focus:bg-transparent"
       >
-        {active === "chat" && (
+        {activePage === "chat" && (
           <motion.div
             layoutId="activeIndicator"
             className="absolute inset-0 bg-[#F59F28] rounded-full"
@@ -53,7 +53,7 @@ export default function BottomNav() {
         )}
         {/* Chat icon:
             - Dark (text-gray-900) when active, light (text-gray-300) when inactive */}
-        <MessageSquare className={`w-6 h-6 relative ${active === "chat" ? "text-gray-900" : "text-gray-300"}`} />
+        <MessageSquare className={`w-6 h-6 relative ${activePage === "chat" ? "text-gray-900" : "text-gray-300"}`} />
       </Button>
     </div>
   );

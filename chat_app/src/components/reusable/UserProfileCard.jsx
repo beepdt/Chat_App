@@ -42,12 +42,12 @@ const UserProfileCard = ({ userId, picturePath }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50, y: 50 }}
+      initial={{ opacity: 0, x: 0, y: 10 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={{ duration: 0.5 }}
       className="bottom-4 right-4"
     >
-      <Card className="w-64 p-2 bg-gray-100 text-gray-900 items-center rounded-2xl shadow-lg flex space-x-4 overflow-hidden">
+      <Card className="w-full p-2 bg-gray-100 text-gray-900 items-center rounded-2xl flex space-x-4 overflow-hidden">
         <div className="flex items-center">
           <Avatar className="w-14 h-14">
             <AvatarImage src={`http://localhost:3000/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />

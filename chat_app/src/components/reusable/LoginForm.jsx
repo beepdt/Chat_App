@@ -9,6 +9,10 @@ import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setLogin } from './../../state'; // Ensure correct import path
+import dotenv from "dotenv";
+import { apiClient } from "@/pages/HomePage/apiClient";
+import { HOST } from "@/pages/HomePage/apiClient";
+import { LOGIN_ROUTE } from "@/pages/HomePage/apiClient";
 
 // Define validation schema using Yup
 const loginSchema = yup.object().shape({
@@ -27,11 +31,12 @@ const LoginForm = () => {
   const navigate = useNavigate(); // Initialize navigate from React Router
   const [errorMessage, setErrorMessage] = React.useState(""); // State for error messages
 
+  
   // Handle form submission
   const handleSubmit = async (values, { resetForm }) => {
     try {
       setErrorMessage(""); // Clear previous errors
-      const response = await fetch("http://localhost:3000/auth/login", {
+      const response = await fetch(`${HOST}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
 import OTPInput from './components/reusable/OTPInput'
 import { useSelector } from 'react-redux'
+import ChatPage from './pages/ChatPage'
 
 
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignPage />} />
         <Route path="/home" element={isAuth ? <HomePage /> : <Navigate to="/" />} />
+        
       </Routes>
    </BrowserRouter>
   )
