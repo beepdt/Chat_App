@@ -14,7 +14,7 @@ const HomePage = () => {
   const [page, setPageType] = useState("home")
 
   return (
-    <div>
+    <div >
       <TopBar/>
       
       {(page === "chat" ? <ChatPage/> : <GlobalPage/>)}      

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { setFriends } from "@/state";
 import BuddyTile from "./BuddyTile";
+import { HOST } from "@/pages/HomePage/apiClient";
 
 const BuddyList = ({userId}) => {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const BuddyList = ({userId}) => {
 
     const getFriends = async () => {
         try {
-          const response = await fetch(`http://localhost:3000/users/friends/${userId}`, 
+          const response = await fetch(`${HOST}/users/friends/${userId}`, 
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}`},
@@ -33,16 +34,20 @@ const BuddyList = ({userId}) => {
          getFriends()
         }, []);
 
+        console.log("friends: ", friends)
+
     return (
         <>
-            <Card className="w-full p-2 bg-gray-100 text-gray-900 items-center rounded-2xl flex space-x-4 overflow-hidden">
-                <span>Buddies</span>
-                <CardContent>
+            <Card className="w-full p-2 bg-white text-gray-900 items-center rounded-2xl flex overflow-hidden">
+                <span className="font-nohemi text-2xl">Buddies</span>
+                <CardContent className="w-full space-y-4 ">
                   {friends.map((friend)=>(
                     <BuddyTile
                       key={friend._id}
                       friendId={friend._id}
                       name={`${friend.username}`}
+                      userPicturePath={friend.picturePath}
+                      isVerified={friend.isVerified}
                     />
                   ))}
                 </CardContent>

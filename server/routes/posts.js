@@ -7,7 +7,7 @@ const router = express.Router();
 
 /*GET POSTS */
 router.get("/", verifyToken, getFeedPosts); // Get all posts
-router.get("/:userId", verifyToken, getUserPosts); // Get all posts of a user
+router.get("/:userId/posts", verifyToken, getUserPosts); // Get all posts of a user
 
 /*UPDATE POSTS */
 router.patch("/:id/like", verifyToken, likePosts); // Like a post

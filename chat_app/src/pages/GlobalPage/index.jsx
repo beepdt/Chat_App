@@ -14,6 +14,8 @@ import TopBar from '@/components/reusable/TopBar';
 import BottomNav from '@/components/reusable/BottomNav';
 import { PlusIcon } from 'lucide-react';
 import BuddyList from '@/components/reusable/BuddyList';
+import RightDiv from './RightDiv';
+import MiddleDiv from './MiddleDiv';
 
 const GlobalPage = () => {
 
@@ -21,25 +23,29 @@ const GlobalPage = () => {
     const [drawerOpen,setDrawerOpen] = useState(false);
 
     return (
-        <>
+        <div >
             
-            <div className='p-2 mt-20'>
+            <div className='p-2 mt-20 '>
                 {/*Desktop Layout */}
-                <div className='hidden md:flex gap-2'>
-                    <div className="flex ">
+                <div className='hidden md:flex gap-6'>
+                    <div className="flex-1 ml-4 ">
                         <div className='display-block space-y-4'>
                             <UserProfileCard userId={_id} picturePath={picturePath}/>
                             <BuddyList userId={_id}/>
-                            <UserProfileCard userId={_id} picturePath={picturePath}/>
                         </div>
                     </div>
-                    <div className="flex-1 border ">Middle Div Global</div>
-                    <div className="flex-1 border ">Right Div</div>
+                    <div className="flex-1 flex justify-center items-center">
+                    <div className='space-y-4'>
+                        <MiddleDiv userId={_id} />
+                    </div>
+                        
+                    </div>
+                    <div className="flex-1  mr-4"><RightDiv/></div>
                 </div>
 
                 {/*Mobile Layout */}
                 <div className="md:hidden">
-                    <div className="border p-2 mb-2">Middle Global Div</div>
+                    <div className=" p-2 mb-2 w-full"><MiddleDiv userId={_id} /></div>
 
                     {/*Floating Action Button */}
                     <Button
@@ -47,7 +53,7 @@ const GlobalPage = () => {
                         className="fixed bottom-4 right-8 rounded-full size-14"
                     >
                         
-                       <PlusIcon className='size-6'/>
+                       <PlusIcon className='size-8'/>
                        
                     </Button>
 
@@ -61,7 +67,7 @@ const GlobalPage = () => {
                         >
                             <DrawerHeader>
                                 <DrawerTitle><UserProfileCard userId={_id} picturePath={picturePath} className="width-20"/></DrawerTitle>
-                                <DrawerDescription>Content</DrawerDescription>
+                                <DrawerDescription><RightDiv/></DrawerDescription>
                                 <DrawerClose/>
                             </DrawerHeader>
                         </DrawerContent>
@@ -69,7 +75,7 @@ const GlobalPage = () => {
                 </div>
             </div>
             
-        </>
+        </div>
     )
 }
 

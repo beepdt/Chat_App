@@ -36,7 +36,7 @@ const LoginForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       setErrorMessage(""); // Clear previous errors
-      const response = await fetch(`${HOST}/auth/login`, {
+      const response = await fetch(`${LOGIN_ROUTE}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

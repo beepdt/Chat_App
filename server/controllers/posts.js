@@ -4,13 +4,13 @@ import User from '../models/user.js';
 //CREATE//
 export const createPost = async (req, res) => {
     try {
-        const { userId, description, picturePath } = req.body; // Get the userId, description, and picturePath from the request body
+        const { userId, description} = req.body; // Get the userId, description, and picturePath from the request body
         const user = await User.findById(userId); // Find the user by the userId
         const newPost = new Post({ 
             username: user.username,
             userPicturePath: user.picturePath,
             description, 
-            picturePath, 
+            picturePath: "", 
             userId,
             likes: {},
         }); // Create a new post with the description, picturePath, and userId and the user's username and picturePath
@@ -68,7 +68,7 @@ export const likePosts = async (req, res) => {
             { new: true }
         ); // Update the post with the new likes data
 
-        res.status(200).json(post); // Respond with the post
+        res.status(200).json(updatedPost); // Respond with the post
     }
     catch (error) {
         res.status(404).json({ error: error.message });

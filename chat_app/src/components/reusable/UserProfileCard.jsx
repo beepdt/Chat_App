@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { HOST } from "@/pages/HomePage/apiClient";
 
 const UserProfileCard = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
@@ -13,7 +14,7 @@ const UserProfileCard = ({ userId, picturePath }) => {
   const getUser = async () => {
     try {
       console.log("Fetching user with ID:", userId);
-      const response = await fetch(`http://localhost:3000/users/${userId}`, 
+      const response = await fetch(`${HOST}/users/${userId}`, 
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}`},
@@ -47,15 +48,15 @@ const UserProfileCard = ({ userId, picturePath }) => {
       transition={{ duration: 0.5 }}
       className="bottom-4 right-4"
     >
-      <Card className="w-full p-2 bg-gray-100 text-gray-900 items-center rounded-2xl flex space-x-4 overflow-hidden">
-        <div className="flex items-center">
+      <Card className="w-full p-4 bg-white text-gray-900 rounded-2xl flex space-x-4 overflow-hidden justify-between shadow-lg dark:bg-zinc-900 dark:text-zinc-100 transition-colors">
+        <div className="flex items-center font-nohemi ml-8 ">
           <Avatar className="w-14 h-14">
-            <AvatarImage src={`http://localhost:3000/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+            <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
           </Avatar>
           <CardContent className="flex flex-col">
-            <span className="text-lg font-semibold">{username || "Loading..."}</span>
-            <span className="text-sm text-gray-600">{email || "Fetching email..."}</span>
-            <span className={`text-sm ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
+            <span className="text-xl  font-semibold">{username || "Loading..."}</span>
+            
+            <span className={`text-lg ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
           </CardContent>
         </div>
         
