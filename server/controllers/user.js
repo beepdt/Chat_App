@@ -85,3 +85,26 @@ export const addRemoveFriend = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+// Function to search for users by username
+export const searchUserByUsername = async (req, res) => {
+    try {
+        const { username } = req.query; // Get the username from query parameters
+
+        // Find users whose username matches the query (case-insensitive)
+        const users = await User.find({ 
+            username: { $regex: username, $options: 'i' } 
+        });
+
+        // Format the user data
+        const formattedUsers = users.map(({ _id, username, picturePath }) => {
+            return { _id, username, picturePath };
+        });
+
+        // Respond with the formatted user data
+        res.status(200).json(formattedUsers);
+    } catch (error) {
+        // Handle any errors and respond with a 500 status code and error message
+        res.status(500).json({ error: error.message });
+    }
+};

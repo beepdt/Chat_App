@@ -119,7 +119,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply  text-foreground;
+    background-color: #202020;
   }
 }
 
@@ -144,4 +145,22 @@
 }
  .font-nohemi {
   font-family: 'Nohemi', sans-serif;
+}
+body {
+  overflow: auto; /* Allow scrolling */
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+.scrollable {
+  overflow: auto; /* Allow scrolling */
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
 }

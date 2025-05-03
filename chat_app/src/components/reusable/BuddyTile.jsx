@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { UserPlus, UserMinus } from "lucide-react";
 import { HOST } from "@/pages/HomePage/apiClient";
+import { PATCH_FRIEND_ROUTE } from "@/pages/HomePage/apiClient";
+import { useNavigate } from "react-router-dom";
 
 const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {_id} = useSelector((state)=> state.user);
     const token = useSelector((state)=>state.token);
@@ -15,7 +18,7 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
 
     const patchFriend = async() => {
         const response =  await fetch(
-            `${HOST}/users/${_id}/${friendId}`,
+            `${PATCH_FRIEND_ROUTE}/${_id}/${friendId}`,
              {
                 method: "PATCH",
                 headers: {
@@ -29,13 +32,13 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
     };
 
     return (
-        <div className="flex items-center justify-between p-4  rounded-md bg-white font-nohemi">
+        <div className="flex items-center justify-between p-4  rounded-md font-nohemi bg-[#FFD1D1]">
             <div className="flex items-center space-x-4">
                 <Avatar className="w-14 h-14 mr-10">
                     <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
                 </Avatar>
                 <div className="flex flex-col">
-                    <span className="text-xl font-medium mr-10">{name}</span>
+                    <span className="text-xl font-medium mr-10" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</span>
                     <span className={`text-sm ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
                 </div>
                 

@@ -21,7 +21,7 @@ import Post from "./models/post.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
-console.log("CLIENT_URL:", process.env.CLIENT_URL);
+//console.log("CLIENT_URL:", process.env.CLIENT_URL);
 
 const app = express();
 app.use(express.json());

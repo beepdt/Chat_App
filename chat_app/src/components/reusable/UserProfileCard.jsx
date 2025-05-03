@@ -48,15 +48,15 @@ const UserProfileCard = ({ userId, picturePath }) => {
       transition={{ duration: 0.5 }}
       className="bottom-4 right-4"
     >
-      <Card className="w-full p-4 bg-white text-gray-900 rounded-2xl flex space-x-4 overflow-hidden justify-between shadow-lg dark:bg-zinc-900 dark:text-zinc-100 transition-colors">
+      <Card className="w-full p-4 bg-[#FF2E63] text-gray-900 rounded-2xl flex space-x-4 overflow-hidden justify-between shadow-lg  border-transparent">
         <div className="flex items-center font-nohemi ml-8 ">
           <Avatar className="w-14 h-14">
             <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
           </Avatar>
           <CardContent className="flex flex-col">
-            <span className="text-xl  font-semibold">{username || "Loading..."}</span>
+            <span className="text-xl  font-semibold" onClick={()=>navigate(`/profile/${userId}`)} >{username || "Loading..."}</span>
             
-            <span className={`text-lg ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
+            <span className={`text-lg ${isVerified? 'text-green-600': 'text-red-800'}`}>{isVerified? "verified": "anonymous"}</span>
           </CardContent>
         </div>
         

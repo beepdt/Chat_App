@@ -7,6 +7,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { setFriends } from "@/state";
 import BuddyTile from "./BuddyTile";
 import { HOST } from "@/pages/HomePage/apiClient";
+import { GET_FRIENDS_ROUTE } from "@/pages/HomePage/apiClient";
 
 const BuddyList = ({userId}) => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const BuddyList = ({userId}) => {
 
     const getFriends = async () => {
         try {
-          const response = await fetch(`${HOST}/users/friends/${userId}`, 
+          const response = await fetch(`${GET_FRIENDS_ROUTE}/${userId}`, 
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}`},
@@ -38,7 +39,7 @@ const BuddyList = ({userId}) => {
 
     return (
         <>
-            <Card className="w-full p-2 bg-white text-gray-900 items-center rounded-2xl flex overflow-hidden">
+            <Card className="w-full p-2 bg-[#FFD1D1] text-gray-900 items-center rounded-2xl flex overflow-hidden">
                 <span className="font-nohemi text-2xl">Buddies</span>
                 <CardContent className="w-full space-y-4 ">
                   {friends.map((friend)=>(

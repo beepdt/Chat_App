@@ -15,7 +15,7 @@ const HomePage = () => {
 
   return (
     <div >
-      <TopBar/>
+      
       
       {(page === "chat" ? <ChatPage/> : <GlobalPage/>)}      
       <BottomNav activePage={page} setPageType={setPageType}/>      

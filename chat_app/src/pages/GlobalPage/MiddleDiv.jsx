@@ -13,6 +13,8 @@ const MiddleDiv = ({
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
     const token = useSelector((state) => state.token);
+    
+
 
     const getPosts = async () => {
         const response = await fetch(`${HOST}/posts`, {
@@ -35,14 +37,20 @@ const MiddleDiv = ({
     };
 
     useEffect(() => {
-        if (isProfile) {
+        if(!token) return;
+        if(isProfile) {
             getUserPosts();
-        } else {
+        }
+        else {
             getPosts();
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
     
-    const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    console.log("posts:", posts);
+    console.log("  typeof:", typeof posts);
+    console.log("  isArray:", Array.isArray(posts));
+    console.log("  has iterator:", !!posts?.[Symbol.iterator]);
+    const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); 
 
     return (
         <>

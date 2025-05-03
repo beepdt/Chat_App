@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage'
 import OTPInput from './components/reusable/OTPInput'
 import { useSelector } from 'react-redux'
 import ChatPage from './pages/ChatPage'
+import ProfilePage from './pages/ProfilePage'
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignPage />} />
         <Route path="/home" element={isAuth ? <HomePage /> : <Navigate to="/" />} />
+        <Route path="/profile/:userId" element={isAuth ? <ProfilePage /> : <Navigate to="/" />} />
         
       </Routes>
    </BrowserRouter>

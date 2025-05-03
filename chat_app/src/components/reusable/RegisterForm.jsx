@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { HOST } from "@/pages/HomePage/apiClient";
+import { REGISTER_ROUTE } from "@/pages/HomePage/apiClient";
 
 const registerSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -33,7 +34,7 @@ const RegisterForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      const response = await fetch(`${HOST}/auth/register`, {
+      const response = await fetch(`${REGISTER_ROUTE}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

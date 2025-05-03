@@ -39,16 +39,16 @@ const YapWidget = (
     };
 
     return (
-        <Card className="rounded-2xl shadow-l  bg-white dark:bg-zinc-900 transition-colors w-full md:w-80 lg:w-150 sm:w-full">
+        <Card className="rounded-2xl shadow-l  bg-[#202020] border-transparent w-full md:w-80 lg:w-150 sm:w-full">
             <CardContent className="flex flex-col space-y-4">
-                <BuddyTile friendId={postUserId} name={username} userPicturePath={userPicturePath}/>
-                <p className="text-base text-gray-900 dark:text-zinc-400 border min-h-14 rounded-xl p-4 justify-center item-center">{description}</p>
+                <BuddyTile friendId={postUserId} name={username} userPicturePath={userPicturePath} />
+                <p className="text-base text-gray-100 dark:text-zinc-400 border-transparent min-h-14 rounded-xl p-4 justify-center item-center">{description}</p>
                 <Button
                     onClick={patchLike}
-                    className={`rounded-xl ${isLiked ? 'bg-gray-900' : 'bg-gray-300'}`}
+                    className={`rounded-xl ${isLiked ? 'bg-[#FF9494]' : 'bg-gray-300'}`}
                 >
-                    {isLiked ? (<ThumbsUpIcon className="w-5"/>) : (<ThumbsDownIcon className="w-5"/>)} 
-                    <span className="text-sm text-white dark:text-zinc-400">
+                    {isLiked ? (<ThumbsUpIcon className="w-5 text-black"/>) : (<ThumbsUpIcon className="w-5 text-black"/>)} 
+                    <span className="text-sm text-black dark:text-zinc-400">
                         {likeCount}
                     </span>
                 </Button>
