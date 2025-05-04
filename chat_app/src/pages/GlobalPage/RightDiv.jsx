@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import BuddyTile from "@/components/reusable/BuddyTile";
 
 const RightDiv = () => {
     const navigate = useNavigate();
@@ -140,24 +141,16 @@ const RightDiv = () => {
             <p className="text-red-500 text-center">{searchError}</p>
           )}
           {searchResults.length > 0 && (
-            <div className="mt-4 space-y-2 max-h-60 overflow-auto">
+            <div className="mt-4 space-y-2 h-auto overflow-auto">
               {searchResults.map((user) => (
-                <div
+                <BuddyTile
                   key={user._id}
-                  className="flex items-center space-x-2 bg-[#FFD1D1] dark:bg-zinc-800 p-2 rounded-xl"
-                    onClick={() => navigate(`/profile/${user._id}`)}
-                >
-                  <img
-                    src={`${HOST}/assets/${user.picturePath}`}
-                    alt={user.username}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div className="flex flex-col">
-                    <h1 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
-                      {user.username}
-                    </h1>
-                  </div>
-                </div>
+                  friendId={user._id}
+                  name={`${user.username}`}
+                  userPicturePath={user.picturePath}
+                  isVerified={user.isVerified}
+                  onClick={() => navigate(`/profile/${user._id}`)}
+                />
               ))}
             </div>
           )}

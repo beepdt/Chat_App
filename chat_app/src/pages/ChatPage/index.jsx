@@ -13,6 +13,9 @@ import UserProfileCard from '@/components/reusable/UserProfileCard';
 import TopBar from '@/components/reusable/TopBar';
 import BottomNav from '@/components/reusable/BottomNav';
 import { PlusCircle, PlusIcon } from 'lucide-react';
+import Contacts from './components/Contacts';
+import ChatContainer from './components/ChatContainer';
+import EmptyContainer from './components/EmptyContainer';
 
 const ChatPage = () => {
 
@@ -22,17 +25,20 @@ const ChatPage = () => {
     return (
         <>
             
-            <div className='p-2 mt-20'>
+            <div className='p-4 mt-20 '>
+                <TopBar />
                 {/*Desktop Layout */}
-                <div className='hidden md:flex gap-2'>
-                    <div className="flex ">
-                        <div className='display-block space-y-4'>
-                            <UserProfileCard userId={_id} picturePath={picturePath}/>
-                            <UserProfileCard userId={_id} picturePath={picturePath}/>
-                        </div>
+                <div className='hidden md:flex  overflow-hidden max-h-100vh h-100vh '>
+                    <div className="flex-1 ">
+                        
+                            <Contacts/>
+                        
                     </div>
-                    <div className="flex-1 border ">Middle Div Chat</div>
-                    <div className="flex-1 border ">Right Div</div>
+                    <div className="flex-2 md:flex max-h-100vh oveflow-hidden h-100vh rounded-lg ">
+                        
+                        <EmptyContainer/>
+                    </div>
+                    
                 </div>
 
                 {/*Mobile Layout */}

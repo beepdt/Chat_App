@@ -32,13 +32,13 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
     };
 
     return (
-        <div className="flex items-center justify-between p-4  rounded-md font-nohemi bg-[#FFD1D1]">
+        <div className="flex items-center justify-between p-4  rounded-md font-nohemi bg-[#FFD1D1] overflow-hidden">
             <div className="flex items-center space-x-4">
                 <Avatar className="w-14 h-14 mr-10">
                     <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
                 </Avatar>
                 <div className="flex flex-col">
-                    <span className="text-xl font-medium mr-10" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</span>
+                    <span className="text-xl font-medium mr-10 max-w-30 overflow-hidden" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</span>
                     <span className={`text-sm ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
                 </div>
                 

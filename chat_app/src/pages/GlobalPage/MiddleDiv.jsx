@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPosts } from "@/state";
 import { Button } from "@/components/ui/button";
@@ -36,15 +36,20 @@ const MiddleDiv = ({
         dispatch(setPosts({ posts: data }));
     };
 
-    useEffect(() => {
-        if(!token) return;
-        if(isProfile) {
+    if(isProfile) {
+        useEffect(() => {
             getUserPosts();
         }
-        else {
+        , []); // eslint-disable-line react-hooks/exhaustive-deps
+    }
+    else {
+        useEffect(() => {
             getPosts();
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+        , []); // eslint-disable-line react-hooks/exhaustive-deps
+    }
+
+    
     
     console.log("posts:", posts);
     console.log("  typeof:", typeof posts);

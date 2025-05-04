@@ -17,6 +17,7 @@ import { PlusIcon } from "lucide-react";
 import TopBar from "@/components/reusable/TopBar";
 import { useParams } from "react-router-dom";
 import { HOST } from "../HomePage/apiClient";
+import BottomNav from "@/components/reusable/BottomNav";
 
 
 const ProfilePage = () => {
@@ -102,6 +103,7 @@ const ProfilePage = () => {
           </DrawerContent>
         </Drawer>
       </div>
+      
     </div>
   );
 }
