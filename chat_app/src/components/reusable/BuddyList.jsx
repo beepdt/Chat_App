@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
@@ -39,9 +39,12 @@ const BuddyList = ({userId}) => {
 
     return (
         <>
-            <Card className="w-full p-2 bg-[#FFD1D1] text-gray-900 items-center rounded-2xl flex overflow-hidden">
-                <span className="font-nohemi text-2xl">Buddies</span>
-                <CardContent className="w-full space-y-4 ">
+            <Card >
+              <CardHeader className="pb-3">
+                <h3 className="font-nohemi text-2xl">Online Buddies</h3>
+              </CardHeader>
+                
+                <CardContent className="space-y-4 ">
                   {friends.map((friend)=>(
                     <BuddyTile
                       key={friend._id}

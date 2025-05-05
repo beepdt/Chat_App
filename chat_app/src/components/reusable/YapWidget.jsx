@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSelector,useDispatch } from "react-redux";
 import { setPost, setPosts } from "@/state";
-import {Card, CardContent } from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { HOST } from "@/pages/HomePage/apiClient";
 import BuddyTile from "./BuddyTile";
-import { ThumbsUpIcon, ThumbsDownIcon } from "lucide-react";
+import { ThumbsUpIcon, ThumbsDownIcon, Heart, HeartIcon } from "lucide-react";
+import { Avatar } from "../ui/avatar";
+import { AvatarImage } from "../ui/avatar";
 
 const YapWidget = (
     {
@@ -23,6 +25,9 @@ const YapWidget = (
     const isLiked = Boolean(likes[loggedInUserId]); // Check if the logged-in user has liked the post
     const likeCount = Object.keys(likes).length;
     const token = useSelector((state) => state.token);
+    
+
+   
 
     const patchLike = async () => {
         const response = await fetch(`${HOST}/posts/${postId}/like`, {
@@ -39,22 +44,39 @@ const YapWidget = (
     };
 
     return (
-        <Card className="rounded-2xl shadow-l  bg-[#202020] border-transparent w-full md:w-80 lg:w-150 sm:w-full">
-            <CardContent className="flex flex-col space-y-4">
-                <BuddyTile friendId={postUserId} name={username} userPicturePath={userPicturePath} />
-                <p className="text-base text-gray-100 dark:text-zinc-400 border-transparent min-h-14 rounded-xl p-4 justify-center item-center">{description}</p>
-                <Button
-                    onClick={patchLike}
-                    className={`rounded-xl ${isLiked ? 'bg-[#FF9494]' : 'bg-gray-300'}`}
-                >
-                    {isLiked ? (<ThumbsUpIcon className="w-5 text-black"/>) : (<ThumbsUpIcon className="w-5 text-black"/>)} 
-                    <span className="text-sm text-black dark:text-zinc-400">
-                        {likeCount}
-                    </span>
-                </Button>
+        
+            <Card >
+                <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                        <Avatar className="rounded-full bg-gray-100 w-12 h-12">
+                            <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+                        </Avatar>
+                        <div className="w-full bg-gradient-to-r from-black to-gray-700 rounded-xl p-2 text-white">
+                            <BuddyTile
+                                friendId={postUserId}
+                                name={username}
+                                
+                             />  
+                        </div>
+                        </div>
+                        <div className="border-2 rounded-xl pl-4 pb-2 pr-2 mt-4">
+                            <p className="mt-3">{description}</p>
+                        </div>
+                        
+                    
+                </CardHeader>
+                <CardFooter className="flex justify-between pt-0 pl-8 -mt-2">
+                    <Button
+                        onClick={patchLike} 
+                        variant="ghost" size="sm" 
+                        className="flex items-center gap-1 rounded-full  w-14">
+                        
+                        <Heart className="h-4 w-4" /> {likeCount} likes
+                    </Button>
+                </CardFooter>
                 
-            </CardContent>
-        </Card>
+            </Card>
+        
     );
 }
 

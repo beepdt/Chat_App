@@ -46,20 +46,26 @@ const UserProfileCard = ({ userId, picturePath }) => {
       initial={{ opacity: 0, x: 0, y: 10 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bottom-4 right-4"
+      
     >
-      <Card className="w-full p-4 bg-[#FF2E63] text-gray-900 rounded-2xl flex space-x-4 overflow-hidden justify-between shadow-lg  border-transparent">
-        <div className="flex items-center font-nohemi ml-8 ">
-          <Avatar className="w-14 h-14">
-            <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
-          </Avatar>
-          <CardContent className="flex flex-col">
-            <span className="text-xl  font-semibold" onClick={()=>navigate(`/profile/${userId}`)} >{username || "Loading..."}</span>
-            
-            <span className={`text-lg ${isVerified? 'text-green-600': 'text-red-800'}`}>{isVerified? "verified": "anonymous"}</span>
-          </CardContent>
-        </div>
-        
+      <Card className="pt-0">
+        <div className="bg-gradient-to-r from-black to-gray-700 h-20 rounded-t-lg "/>
+          <CardContent className="pt-0">
+            <div className="flex items-center gap-3">
+              <div className="relative -mt-20">
+                <Avatar className="w-16 h-16 border-4 bg-white border-background">
+                  <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+                </Avatar>
+              </div>
+              <div className="flex-1 pt-2 pl-4 -mt-6">
+                <h3 className="font-semibold font-nohemi text-2xl" onClick={()=>navigate(`/profile/${userId}`)} >
+                   <span className="text-sm text-gray-400">@</span>{username || "Loading..."}
+                </h3>
+                <p className={`text-sm ${isVerified? 'text-green-600': 'text-red-800'}`}>{isVerified? "verified": "anonymous"}</p>
+              </div>
+            </div>      
+
+          </CardContent>  
       </Card>
     </motion.div>
   );

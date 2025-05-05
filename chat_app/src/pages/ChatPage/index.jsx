@@ -28,15 +28,15 @@ const ChatPage = () => {
             <div className='p-4 mt-20 '>
                 <TopBar />
                 {/*Desktop Layout */}
-                <div className='hidden md:flex  overflow-hidden max-h-100vh h-100vh '>
-                    <div className="flex-1 ">
+                <div className='hidden md:flex  overflow-hidden max-h-[100vh] h-[100vh] space-x-4 '>
+                    <div className="flex ">
                         
                             <Contacts/>
                         
                     </div>
-                    <div className="flex-2 md:flex max-h-100vh oveflow-hidden h-100vh rounded-lg ">
+                    <div className="flex-2 md:flex max-h-[100vh] oveflow-hidden h-[100vh] rounded-lg ">
                         
-                        <EmptyContainer/>
+                        <ChatContainer/>
                     </div>
                     
                 </div>

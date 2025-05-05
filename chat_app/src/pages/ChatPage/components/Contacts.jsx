@@ -12,6 +12,7 @@ import { useEffect } from 'react';
     const dispatch = useDispatch();
     const token = useSelector((state)=> state.token);
     const friends = useSelector((state)=> state.user.friends);
+
     const getFriends = async () => {
             try {
               const response = await fetch(`${GET_FRIENDS_ROUTE}/${_id}`, 
@@ -37,10 +38,16 @@ import { useEffect } from 'react';
     return(
         <>
         <div
-            className="relative md:w-[35vw] lg:w-[30vw] xl:w=[20vw] 
+            className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] 
                         bg-[#111111] rounded-lg text-white w-full h-full"
         >
-            Contacts
+            <div className='flex items-center justify-between'>
+              <h2 className='font-nohemi pl-4 pt-4 text-xl'>Direct Messages</h2>
+            </div>
+            <div className='flex items-center justify-between'>
+              <h2 className='font-nohemi pl-4 pt-4 text-xl'>Groups</h2>
+            </div>
+            
         </div>
             
         </>

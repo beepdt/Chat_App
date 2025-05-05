@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import BuddyTile from "@/components/reusable/BuddyTile";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const RightDiv = () => {
     const navigate = useNavigate();
@@ -15,6 +17,8 @@ const RightDiv = () => {
   const [post, setPost] = useState("");
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const userPicturePath = useSelector((state) => state.user.picturePath);
+  const user = useSelector((state) => state.user);
 
   const [image, setImage] = useState(null);
 
@@ -23,6 +27,7 @@ const RightDiv = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState("");
+
 
   // Clear previous results when search text changes
   useEffect(() => {
@@ -82,56 +87,48 @@ const RightDiv = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full md:w-60 lg:w-full"
+      
     >
-      {/* Create Post Card */}
-      <Card className="rounded-2xl shadow-l bg-[#FF9494] dark:bg-zinc-900 transition-colors border-transparent mb-4">
-        <CardContent className="flex flex-col space-y-4">
-          <h1 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100 font-nohemi">
-            Create a Post
-          </h1>
-          <Input
-            placeholder="What's on your mind?"
-            value={post}
-            onChange={(e) => setPost(e.target.value)}
-            className="rounded-xl text-white text-base py-6 bg-[#222831] dark:bg-zinc-800"
-          />
-          <Button
-            onClick={handlePost}
-            disabled={!post.trim()}
-            className="self-end rounded-xl"
-          >
-            Post
-          </Button>
-        </CardContent>
-      </Card>
+      
+      
 
       {/* Search Users Card */}
-      <Card className="rounded-2xl shadow-l bg-[#FF9494] dark:bg-zinc-900 transition-colors border-transparent">
-        <CardContent className="flex flex-col space-y-4">
-          <h1 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100 font-nohemi">
-            Search your Yapper
-          </h1>
+      <Card className="overflow-hidden border-none shadow-lg pt-0">
+        <div className="bg-gradient-to-r from-black to-gray-700 p-4">
+            <h3 className="text-xl text-white font-nohemi">Find Buddies</h3>
+            <p className="text-sm text-white/80">Connect with yappers you may know</p>
+        </div>
+        <CardContent className="pt-4">
           <div className="flex items-center space-x-2">
-            <Input
-              placeholder="Search user..."
-              value={searchUser}
-              onChange={(e) => setSearchUser(e.target.value)}
-              className="flex-1 rounded-xl text-base py-2 bg-[#222831] text-white"
-            />
+            <div className="relative flex-1">
+              <Input
+                placeholder="Search user..."
+                value={searchUser}
+                onChange={(e) => setSearchUser(e.target.value)}
+                className="pr-8"
+              />
+            </div>
+            
             <Button
               onClick={handleSearch}
               disabled={isSearching || !searchUser.trim()}
-              className="self-end rounded-xl"
+              className= "rounded-full"
             >
               {isSearching ? "Searching..." : "Search"}
             </Button>
           </div>
 
           {/* Results */}
-          {isSearching && (
-            <p className="text-center text-zinc-600 dark:text-zinc-400">Searching...</p>
-          )}
+          <div className="mt-4">
+            {isSearching && (
+              <div className="flex flex-col items-center justify-center py-8">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+                <p className="mt-2 text-sm text-muted-foreground">Searching...</p>
+              </div>
+              
+            )}
+          </div>
+          
 
           {!isSearching && searchUser.trim() && searchResults.length === 0 && (
             <p className="text-center text-zinc-600 dark:text-zinc-400">No users found.</p>
@@ -141,17 +138,21 @@ const RightDiv = () => {
             <p className="text-red-500 text-center">{searchError}</p>
           )}
           {searchResults.length > 0 && (
-            <div className="mt-4 space-y-2 h-auto overflow-auto">
-              {searchResults.map((user) => (
-                <BuddyTile
-                  key={user._id}
-                  friendId={user._id}
-                  name={`${user.username}`}
-                  userPicturePath={user.picturePath}
-                  isVerified={user.isVerified}
-                  onClick={() => navigate(`/profile/${user._id}`)}
-                />
-              ))}
+            <div className="mt-2 space-y-2 ">
+              <h4 className="text-sm font-medium">Search Results</h4>
+              <div className="overflow-auto rounded-md border space-y-2 pr-2 pl-2">
+                {searchResults.map((user) => (
+                  <BuddyTile
+                    key={user._id}
+                    friendId={user._id}
+                    name={`${user.username}`}
+                    userPicturePath={user.picturePath}
+                    isVerified={user.isVerified}
+                    onClick={() => navigate(`/profile/${user._id}`)}
+                  />
+                ))}
+              </div>
+              
             </div>
           )}
         </CardContent>
