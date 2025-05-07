@@ -8,6 +8,7 @@ import BuddyTile from "./BuddyTile";
 import { ThumbsUpIcon, ThumbsDownIcon, Heart, HeartIcon } from "lucide-react";
 import { Avatar } from "../ui/avatar";
 import { AvatarImage } from "../ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 const YapWidget = (
     {
@@ -19,6 +20,8 @@ const YapWidget = (
         userPicturePath,
     }
 ) => {
+
+    const navigate = useNavigate();
 
     const loggedInUserId = useSelector((state) => state.user._id); 
     const dispatch = useDispatch();
@@ -45,31 +48,27 @@ const YapWidget = (
 
     return (
         
-            <Card >
-                <CardHeader className="pb-3">
-                    <div className="flex items-center gap-3">
-                        <Avatar className="rounded-full bg-gray-100 w-12 h-12">
-                            <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
-                        </Avatar>
-                        <div className="w-full bg-gradient-to-r from-black to-gray-700 rounded-xl p-2 text-white">
-                            <BuddyTile
-                                friendId={postUserId}
-                                name={username}
-                                
-                             />  
-                        </div>
-                        </div>
-                        <div className="border-2 rounded-xl pl-4 pb-2 pr-2 mt-4">
-                            <p className="mt-3">{description}</p>
+            <Card className="rounded-none border-[#1e1e1e] border-t-1 border-l-0 border-r-0 overflow-hidden bg-transparent hover:bg-[#1e1e1e] transition-all duration-300 ease-in-out -mr-2">
+                <CardHeader className="border-b-2 border-[#1e1e1e] p-4 w-full">
+                    <div className="flex items-center gap-3 w-full pl-2 ">
+                        <BuddyTile 
+                            friendId={postUserId}
+                            name={`${username}`}
+                            userPicturePath={userPicturePath}
+                             // Assuming you have a way to determine if the user is verified
+                        />
+                    </div>
+                        <div className=" rounded-none  pb-2 pl-4 pt-0 -mt-4">
+                            <p className="mt-3 text-[#FFFAFA] font-general">{description}</p>
                         </div>
                         
                     
                 </CardHeader>
-                <CardFooter className="flex justify-between pt-0 pl-8 -mt-2">
+                <CardFooter className="flex justify-between pt-0 pl-4 -mt-2">
                     <Button
                         onClick={patchLike} 
                         variant="ghost" size="sm" 
-                        className="flex items-center gap-1 rounded-full  w-14">
+                        className="flex items-center gap-1 rounded-full bg-[#ff4911] ">
                         
                         <Heart className="h-4 w-4" /> {likeCount} likes
                     </Button>

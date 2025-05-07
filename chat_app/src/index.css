@@ -121,6 +121,12 @@
  
 }
 
+@layer base {
+  body {
+    @apply bg-[#111111]
+  }
+}
+
 @font-face {
   src: url('./assets/fonts/generalSansMedium.otf') format('opentype');
   font-family: 'General Sans';
@@ -143,6 +149,30 @@
  .font-nohemi {
   font-family: 'Nohemi', sans-serif;
 }
+
+@font-face{
+  font-family: 'Mango';  
+  src: url('./assets/fonts/mango.otf') format('opentype');
+  font-weight: 700;
+  font-style: bold;
+}
+ .font-mango {
+  font-family: 'Mango', sans-serif;
+}
+
+@font-face {
+  font-family: 'Nexus';  
+  src: url('./assets/fonts/Nexusbold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+ .font-nexus {
+  font-family: 'Nexus', sans-serif;
+}
+
+
+
+
 body {
   overflow: auto; /* Allow scrolling */
   -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer */

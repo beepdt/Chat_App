@@ -91,27 +91,30 @@ const MiddleDiv = ({
     const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); 
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-6">
 
-                <Card >
-                        <CardContent className="pt-6">
-                            <div className="flex items-center gap-3 mb-3">
-                                <Avatar>
-                                <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+                <Card className="rounded-none shadow-none bg-[#111111] border-[#ff4911] border-none">
+                        <CardContent className="p-0 pl-4 pr-4 ">
+                            <h1 className="font-nexus text-[#ff4911] text-[100px] -mt-8">Create a Post</h1>
+                            <div className="flex items-center gap-4 mb-4">
+                                <Avatar className="h-12 w-12 rounded-full bg-[#ff4911]" >
+                                    <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
                                 </Avatar>
-                                <Input
-                                placeholder="What's on your mind?"
-                                value={post}
-                                onChange={(e) => setPost(e.target.value)}
-                                className="rounded-full "
-                                />
+                                <div className="w-full bg-[#FFFAFA] rounded-full">
+                                    <Input
+                                        placeholder="What's on your mind?"
+                                        value={post}
+                                        onChange={(e) => setPost(e.target.value)}
+                                        className="flex-1 rounded-full bg-[##FFFAFA]"
+                                    />
+                                </div>
+                                
                             </div>
                             <Separator className="my-4" />         
-                            <Button
-                                
+                            <Button    
                                 onClick={handlePost}
                                 disabled={!post.trim()}
-                                className="flex items-center gap-1 rounded-full"
+                                className="bg-[#1e1e1e] rounded-full font-nohemi text-[12px] flex justify-center items-center gap-1 "
                             >
                                 Post
                             </Button>

@@ -93,26 +93,26 @@ const RightDiv = () => {
       
 
       {/* Search Users Card */}
-      <Card className="overflow-hidden border-none shadow-lg pt-0">
-        <div className="bg-gradient-to-r from-black to-gray-700 p-4">
-            <h3 className="text-xl text-white font-nohemi">Find Buddies</h3>
-            <p className="text-sm text-white/80">Connect with yappers you may know</p>
+      <Card className="overflow-hidden border-none p-0 pt-0 rounded-xl bg-[ #111111]">
+        <div className="pl-4">
+            <h3 className="text-[100px] font-nexus -mt-2 text-[#ff4911]">Find Buddies</h3>
+            <p className="text-[14px] font-nohemi -mt-6 text-[#ff4911]">Connect with yappers you may know</p>
         </div>
-        <CardContent className="pt-4">
+        <CardContent className="pt-0 pl-4  rounded-lg pt-4 pb-4">
           <div className="flex items-center space-x-2">
-            <div className="relative flex-1">
+            <div className="relative flex-1 bg-[#FFFAFA rounded-full]">
               <Input
                 placeholder="Search user..."
                 value={searchUser}
                 onChange={(e) => setSearchUser(e.target.value)}
-                className="pr-8"
+                className="pr-8 bg-[#FFFAFA]"
               />
             </div>
             
             <Button
               onClick={handleSearch}
               disabled={isSearching || !searchUser.trim()}
-              className= "rounded-full"
+              className= "rounded-full "
             >
               {isSearching ? "Searching..." : "Search"}
             </Button>
@@ -138,9 +138,9 @@ const RightDiv = () => {
             <p className="text-red-500 text-center">{searchError}</p>
           )}
           {searchResults.length > 0 && (
-            <div className="mt-2 space-y-2 ">
-              <h4 className="text-sm font-medium">Search Results</h4>
-              <div className="overflow-auto rounded-md border space-y-2 pr-2 pl-2">
+            <div className="mt-2 space-y-2 p-0">
+              <h4 className="text-sm font-nohemi text-[#ff4911]">Search Results</h4>
+              <div className="overflow-auto rounded-md space-y-2 pr-2 pl-2 bg-[#1e1e1e] pt-4 pb-4">
                 {searchResults.map((user) => (
                   <BuddyTile
                     key={user._id}

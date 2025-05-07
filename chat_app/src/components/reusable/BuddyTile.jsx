@@ -33,19 +33,19 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
     };
 
     return (
-        <div className="flex items-center gap-2 justify-between w-full">
+        <div className="flex justify-between items-center gap-3 border-b border-foreground/20 pb-3 last:border-0">
             <div className="items-center flex gap-2">
-            <div className="relative">
-                <Avatar className="w-10 h-10">
-                    <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
-                </Avatar>
-                <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-transparent"></span>
-                
-            </div>
-            <div className="flex flex-col">
-                    <span className="text-xl font-medium mr-10 max-w-30 overflow-hidden" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</span>
-                    <span className={`text-sm ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</span>
-            </div>
+                <div className="relative">
+                    <Avatar className="w-12 h-12 rounded-full bg-[#FFFAFA]">
+                        <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+                    </Avatar>
+                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-background"></span>
+                    
+                </div>
+                <div className="flex flex-col pl-4">
+                        <p className="text-[24px] text-[#FFFAFA] font-nohemi mr-10 max-w-30 overflow-hidden" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</p>
+                        <p className={`text-sm font-mono ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</p>
+                </div>
             </div>
 
             
@@ -54,7 +54,7 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
                 <Button
                     variant={isFriend ? "default" : "default"}
                     onClick={patchFriend}
-                    className="rounded-full bg-gradient-to-r bg-gray-700"
+                    className="rounded-full bg-[#1e1e1e]"
                 >
                     {isFriend ? <UserMinus /> : <UserPlus />}
                 </Button>

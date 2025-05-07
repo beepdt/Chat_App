@@ -48,20 +48,26 @@ const UserProfileCard = ({ userId, picturePath }) => {
       transition={{ duration: 0.5 }}
       
     >
-      <Card className="pt-0">
-        <div className="bg-gradient-to-r from-black to-gray-700 h-20 rounded-t-lg "/>
-          <CardContent className="pt-0">
-            <div className="flex items-center gap-3">
-              <div className="relative -mt-20">
-                <Avatar className="w-16 h-16 border-4 bg-white border-background">
-                  <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
-                </Avatar>
-              </div>
-              <div className="flex-1 pt-2 pl-4 -mt-6">
-                <h3 className="font-semibold font-nohemi text-2xl" onClick={()=>navigate(`/profile/${userId}`)} >
-                   <span className="text-sm text-gray-400">@</span>{username || "Loading..."}
-                </h3>
-                <p className={`text-sm ${isVerified? 'text-green-600': 'text-red-800'}`}>{isVerified? "verified": "anonymous"}</p>
+      <Card className="overflow-hidden rounded-xl border-none  mt-0 pt-0 shadow-none bg-[#111111]">
+          <div className="pt-0 ">
+            <div className="flex items-center justify-between pt-0 pl-4 p-0">
+              <h1 className="font-nexus text-[120px] -mt-6 text-[#ff4911]">Profile</h1>
+            </div>
+          </div>
+          <CardContent className="p-0 -mt-14  rounded-lg pt-4 pb-4 hover:bg-[#1e1e1e] transition-all duration-300 ease-in-out">
+            <div className="grid-pattern p-0 pl-4 ">
+              <div className="flex items-center gap-4 ">
+                <div className="relative">
+                  <Avatar className="h-14 w-14 rounded-full bg-[#FFFAFA] shadow-xl">
+                    <AvatarImage src={`${HOST}/assets/${picturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />
+                  </Avatar>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold font-nohemi text-2xl text-[#FFFAFA]" onClick={()=>navigate(`/profile/${userId}`)} >
+                    <span className="text-sm text-[#ff4911]">@</span>{username || "Loading..."}
+                  </h3>
+                  <p className={`text-sm font-mono ${isVerified? 'text-green-600': 'text-red-800'}`}>{isVerified? "verified": "anonymous"}</p>
+                </div>               
               </div>
             </div>      
 

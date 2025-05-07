@@ -22,23 +22,22 @@ const GlobalPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div className='w-full max-w-7xl mx-auto px-4 py-6 ' >
-      <TopBar/>
+    <div className='w-full max-w-7xl mx-auto px-4 py-6 bg-[#111111]' >
+      
       
       {/* Desktop Layout */}
-      <div className='grid grid-cols-1 lg:grid-cols-12 gap-4 mt-20'>
+      <div className='grid grid-cols-1 lg:grid-cols-12 gap-4 '>
         {/* Left Fixed Panel */}
-        <div className='hidden lg:block lg:col-span-3 space-y-4 sticky top-6'>
-          
+        <div className='hidden lg:block lg:col-span-3 space-y-0 sticky top-6 '>         
             <UserProfileCard userId={_id} picturePath={picturePath} />
             <BuddyList userId={_id} />
           
         </div>
 
         {/* Middle Scrollable Section */}
-        <div className='col-span-1 lg:col-span-6'>
+        <div className='col-span-1 lg:col-span-6 border-l-2 border-r-2 border-[#1e1e1e] pr-0'>
           <ScrollArea className="h-full">
-            <div className='space-y-4 pr-1'>
+            <div className='space-y-0 pr-1 '>
               <MiddleDiv userId={_id} />
             </div>
           </ScrollArea>  

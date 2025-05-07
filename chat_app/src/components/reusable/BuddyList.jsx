@@ -39,12 +39,12 @@ const BuddyList = ({userId}) => {
 
     return (
         <>
-            <Card >
-              <CardHeader className="pb-3">
-                <h3 className="font-nohemi text-2xl">Online Buddies</h3>
+            <Card className="rounded-xl shadow-none border-none pt-0 bg-transparent -mt-12 ">
+              <CardHeader className="p-0 pl-4">
+                <h3 className="font-nexus text-[100px] text-[#ff4911] p-0">Online Buddies</h3>
               </CardHeader>
                 
-                <CardContent className="space-y-4 ">
+                <CardContent className="space-y-4 p-4 -mt-12 rounded-lg ">
                   {friends.map((friend)=>(
                     <BuddyTile
                       key={friend._id}
