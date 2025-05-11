@@ -93,7 +93,7 @@ const RightDiv = () => {
       
 
       {/* Search Users Card */}
-      <Card className="overflow-hidden border-none p-0 pt-0 rounded-xl bg-[ #111111]">
+      <Card className="overflow-hidden border-none p-0 pt-0 rounded-xl bg-[ #111111] w-[400px]">
         <div className="pl-4">
             <h3 className="text-[100px] font-nexus -mt-2 text-[#ff4911]">Find Buddies</h3>
             <p className="text-[14px] font-nohemi -mt-6 text-[#ff4911]">Connect with yappers you may know</p>
@@ -140,7 +140,7 @@ const RightDiv = () => {
           {searchResults.length > 0 && (
             <div className="mt-2 space-y-2 p-0">
               <h4 className="text-sm font-nohemi text-[#ff4911]">Search Results</h4>
-              <div className="overflow-auto rounded-md space-y-2 pr-2 pl-2 bg-[#1e1e1e] pt-4 pb-4">
+              <div className="overflow-auto rounded-md space-y-2 pr-2 pl-2 bg-[#1e1e1e] pt-4 pb-4 ">
                 {searchResults.map((user) => (
                   <BuddyTile
                     key={user._id}

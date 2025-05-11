@@ -95,7 +95,7 @@ const MiddleDiv = ({
 
                 <Card className="rounded-none shadow-none bg-[#111111] border-[#ff4911] border-none">
                         <CardContent className="p-0 pl-4 pr-4 ">
-                            <h1 className="font-nexus text-[#ff4911] text-[100px] -mt-8">Create a Post</h1>
+                            <h1 className="font-nexus text-[#ff4911] text-[120px] -mt-6">Create a Post</h1>
                             <div className="flex items-center gap-4 mb-4">
                                 <Avatar className="h-12 w-12 rounded-full bg-[#ff4911]" >
                                     <AvatarImage src={`${HOST}/assets/${userPicturePath}` || user?.picturePath} alt="Profile" className="rounded-full" />

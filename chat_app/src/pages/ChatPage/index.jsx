@@ -25,8 +25,8 @@ const ChatPage = () => {
     return (
         <>
             
-            <div className='p-4 mt-20 '>
-                <TopBar />
+            <div className='p-4 '>
+                
                 {/*Desktop Layout */}
                 <div className='hidden md:flex  overflow-hidden max-h-[100vh] h-[100vh] space-x-4 '>
                     <div className="flex ">

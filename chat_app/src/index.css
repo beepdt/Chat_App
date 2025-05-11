@@ -123,7 +123,12 @@
 
 @layer base {
   body {
-    @apply bg-[#111111]
+    @apply bg-[#111111];
+    scroll-behavior: smooth;
+  }
+  html {
+    @apply bg-[#111111];
+    scroll-behavior: smooth;
   }
 }
 
@@ -179,7 +184,7 @@ body {
   scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none; /* Hide scrollbar for WebKit browsers */
 }
 .scrollable {

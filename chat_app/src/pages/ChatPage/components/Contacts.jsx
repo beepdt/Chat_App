@@ -5,17 +5,20 @@ import { useDispatch } from 'react-redux';
 import { setFriends } from '@/state';
 import { GET_FRIENDS_ROUTE } from '@/pages/HomePage/apiClient';
 import { useEffect } from 'react';
+import UserProfileCard from '@/components/reusable/UserProfileCard';
 
  const Contacts = () => {
-    const {_id="", picturePath=""} = useSelector((state)=>state.user)
+    const user = useSelector((state)=> state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector((state)=> state.token);
     const friends = useSelector((state)=> state.user.friends);
 
+
+
     const getFriends = async () => {
             try {
-              const response = await fetch(`${GET_FRIENDS_ROUTE}/${_id}`, 
+              const response = await fetch(`${GET_FRIENDS_ROUTE}/${user._id}`, 
                 {
                   method: "GET",
                   headers: { Authorization: `Bearer ${token}`},
@@ -30,6 +33,8 @@ import { useEffect } from 'react';
               console.error("Error fetching user:", error);
             }
           };
+
+                      
           useEffect(() => {
             getFriends()
           } , []); //eslint-disable-line react-hooks/exhaustive-deps
@@ -39,13 +44,19 @@ import { useEffect } from 'react';
         <>
         <div
             className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] 
-                        bg-[#111111] rounded-lg text-white w-full h-full"
+                          text-white w-full h-full border-2 border-[#1e1e1e] "
         >
+            <UserProfileCard 
+                userId={user._id}
+                picturePath={user.picturePath}
+                name={user.name}
+                onClick={() => navigate(`/profile/${user._id}`)}
+            />
             <div className='flex items-center justify-between'>
-              <h2 className='font-nohemi pl-4 pt-4 text-xl'>Direct Messages</h2>
+              <h2 className='font-nexus pl-4  text-[72px] text-[#ff4911]'>Direct Messages</h2>
             </div>
             <div className='flex items-center justify-between'>
-              <h2 className='font-nohemi pl-4 pt-4 text-xl'>Groups</h2>
+              <h2 className='font-nexus pl-4 pt-2 text-[72px] text-[#ff4911]'>Groups</h2>
             </div>
             
         </div>

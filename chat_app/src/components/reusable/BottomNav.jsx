@@ -25,7 +25,7 @@ export default function BottomNav({activePage, setPageType}) {
           // Animated active indicator with a bright color
           <motion.div
             layoutId="activeIndicator"
-            className="absolute inset-0 bg-[#F59F28] rounded-full"
+            className="absolute inset-0 bg-[#ff4911] rounded-full"
             initial={false}
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
           />
@@ -46,7 +46,7 @@ export default function BottomNav({activePage, setPageType}) {
         {activePage === "chat" && (
           <motion.div
             layoutId="activeIndicator"
-            className="absolute inset-0 bg-[#F59F28] rounded-full"
+            className="absolute inset-0 bg-[#bafca2] rounded-full"
             initial={false}
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
           />
