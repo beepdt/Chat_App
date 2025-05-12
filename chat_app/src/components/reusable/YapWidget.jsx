@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
-import { setPost, setPosts } from "@/state";
+import { setPost, setPosts } from "@/state/index";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { HOST } from "@/pages/HomePage/apiClient";
 import BuddyTile from "./BuddyTile";

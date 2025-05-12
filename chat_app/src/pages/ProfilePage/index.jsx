@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
-import { setFriends } from "@/state"
+import { setFriends } from "@/state/index"
 import { HOST, PATCH_FRIEND_ROUTE } from "@/pages/HomePage/apiClient"
 import MiddleDiv from "../GlobalPage/MiddleDiv"
 import RightDiv from "../GlobalPage/RightDiv"

@@ -8,7 +8,7 @@ import { Menu, LogOut, Settings } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { setLogout } from "@/state"
+import { setLogout } from "@/state/index.js"
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false)

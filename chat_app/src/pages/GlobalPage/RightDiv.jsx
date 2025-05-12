@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPosts } from "@/state";
+import { setPosts } from "@/state/index";
 import { Button } from "@/components/ui/button";
 import { HOST } from "../HomePage/apiClient";
 import { Card, CardContent } from "@/components/ui/card";

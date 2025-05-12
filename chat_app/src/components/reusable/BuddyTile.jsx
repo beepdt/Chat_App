@@ -1,4 +1,4 @@
-import { setFriends } from "@/state";
+import { setFriends } from "@/state/index.js";
 import { useDispatch,useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -43,7 +43,7 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
                     
                 </div>
                 <div className="flex flex-col pl-4">
-                        <p className="text-[24px] text-[#FFFAFA] font-nohemi mr-10 max-w-30 overflow-hidden" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</p>
+                        <p className="text-[24px] text-[#FFFAFA] font-nohemi mr-10 max-w-30 overflow-hidden hover:cursor-pointer hover:text-[#ff4911] transition ease-in-ease-out duration 800" onClick={()=> navigate(`/profile/${friendId}`)}>{name}</p>
                         <p className={`text-sm font-mono ${isVerified? 'text-green-600': 'text-red-600'}`}>{isVerified? "verified": "anonymous"}</p>
                 </div>
             </div>
@@ -54,7 +54,7 @@ const BuddyTile = ({friendId,name, userPicturePath, isVerified}) => {
                 <Button
                     variant={isFriend ? "default" : "default"}
                     onClick={patchFriend}
-                    className="rounded-full bg-[#1e1e1e]"
+                    className="rounded-full bg-[#1e1e1e] hover:cursor-pointer"
                 >
                     {isFriend ? <UserMinus /> : <UserPlus />}
                 </Button>

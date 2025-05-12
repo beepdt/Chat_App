@@ -43,7 +43,7 @@ const ChatPage = () => {
 
                 {/*Mobile Layout */}
                 <div className="md:hidden">
-                    <div className="border p-2 mb-2">Middle Chat Div</div>
+                    <div><Contacts/></div>
 
                     {/*Floating Action Button */}
                     <Button

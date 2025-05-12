@@ -1,6 +1,6 @@
 import { use, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPosts } from "@/state";
+import { setPosts } from "@/state/index";
 import { Button } from "@/components/ui/button";
 import YapWidget from "@/components/reusable/YapWidget";
 import { HOST } from "@/pages/HomePage/apiClient";

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { HOST } from "@/pages/HomePage/apiClient";
 import { useDispatch } from "react-redux";
-import { setLogout } from "@/state";
+import { setLogout } from "@/state/index";
 import { Button } from "@/components/ui/button";
 
 

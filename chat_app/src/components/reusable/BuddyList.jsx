@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
-import { setFriends } from "@/state";
+import { setFriends } from "@/state/index.js";
 import BuddyTile from "./BuddyTile";
 import { HOST } from "@/pages/HomePage/apiClient";
 import { GET_FRIENDS_ROUTE } from "@/pages/HomePage/apiClient";
