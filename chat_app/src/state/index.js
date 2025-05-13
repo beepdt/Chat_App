@@ -5,6 +5,9 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  selectedChatType: null, // List of contact objects { id, name, avatar, lastMessage, unreadCount }
+  selectedChatData: null, // Messages keyed by contactId: { [contactId]: [ { id, senderId, text, timestamp } ] }
+  selectedChatMessages: [],
 };
 
 export const authSlice = createSlice({
@@ -43,9 +46,24 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts; // Set the posts state to the updated posts
     },
+    setSelectedChatType: (state, action) => {
+      state.selectedChatType = action.payload.selectedChatType;
+    },
+    //
+    setSelectedChatData: (state, action) => {
+      state.selectedChatData = action.payload.selectedChatData;
+    },
+    setSelectedChatMessages: (state, action) => {
+      state.selectedChatMessages = action.payload.selectedChatMessages;
+    },
+    setCloseChat: (state) => {
+      state.selectedChatType = "";
+      state.selectedChatData = null;
+      state.selectedChatMessages = [];
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost,setSelectedChatData,setCloseChat,setSelectedChatType } =
   authSlice.actions;
 export default authSlice.reducer;

@@ -52,7 +52,7 @@ const Contacts = () => {
           <h2 className="font-nexus pl-4  text-[72px] text-[#ff4911]">
             Direct Messages
           </h2>
-          <NewDm/>
+          <NewDm />
         </div>
         <div className="flex items-center justify-between">
           <h2 className="font-nexus pl-4 pt-2 text-[72px] text-[#ff4911]">

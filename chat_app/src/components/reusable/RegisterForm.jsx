@@ -72,7 +72,7 @@ const RegisterForm = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto p-8 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow"
+            className="max-w-lg mx-auto p-8 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow mb-4"
           >
             <div className="mb-4">
               <div className="font-nohemi text-3xl mb-4">Become a Yapper</div>

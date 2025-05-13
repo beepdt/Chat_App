@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import authReducer from './state/index';
-import chatReducer from './state/chatSlice'
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import {
@@ -20,10 +19,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate from redux-persist/integration/react
 import { combineReducers } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  chat: chatReducer,
-});
+
 const persistConfig = { key: 'root', storage, version: 1}; // Configuration for redux-persist
 const persistedReducer = persistReducer(persistConfig, authReducer); // Create a persisted reducer
 const store = configureStore({ // Create a store with the persisted reducer

@@ -17,6 +17,7 @@ import { PlusIcon } from 'lucide-react';
 import TopBar from '@/components/reusable/TopBar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
+import LiquidBlobsBackground from '../SignPage/LiquidBlobsBackground';
 
 
 const GlobalPage = () => {
@@ -28,7 +29,8 @@ const GlobalPage = () => {
   }
 
   return (
-  <div className='overflow-y-auto scrollbar-thumb-blue-500'>
+  <div className='overflow-y-auto scrollbar-thumb-blue-500 '>
+  
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-320 h-25 bg-purple-800/20 blur-3xl rounded-full" />
     <div className="absolute top-70 left-60 w-100 h-50 bg-purple-800/10 blur-3xl rounded-full" />
       <div className='border-b-2 border-[#1e1e1e] '>

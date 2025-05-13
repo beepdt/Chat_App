@@ -8,7 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { setLogin } from './../../state//index.js'; // Ensure correct import path
+import { setLogin } from './../../state//index'; // Ensure correct import path
 import dotenv from "dotenv";
 import { apiClient } from "@/pages/HomePage/apiClient";
 import { HOST } from "@/pages/HomePage/apiClient";
@@ -76,7 +76,7 @@ const LoginForm = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto px-8 p-6 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow"
+            className="max-w-lg mx-auto px-8 p-6 bg-white/85 backdrop-blur-sm md:bg-white rounded shadow mb-4"
           >
             {errorMessage && (
               <div className="mb-4 text-red-500 text-center">

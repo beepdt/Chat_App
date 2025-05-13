@@ -1,18 +1,21 @@
-import ChatHeader from "@/components/reusable/ChatHeader"
-import MessageBar from "./MessagBar"
-import MessageContainer from "./MessageContainer"
+import ChatHeader from "@/components/reusable/ChatHeader";
+import MessageBar from "./MessagBar";
+import MessageContainer from "./MessageContainer";
+import { useSelector } from "react-redux";
 
 const ChatContainer = () => {
-    return (
-        <>
-            <div
-                className="fixed h-[100vh] max-w-[76vw] w-full  flex flex-col  p-2 border-2 border-[#1e1e1e]"
-            >
-                <ChatHeader/>
-                <MessageContainer/>
-                <MessageBar/>
-            </div>
-        </>
-    )
-}
-export default ChatContainer
+  const chatUser = useSelector((state) => state.selectedChatData);
+  console.log(chatUser);
+  const { username, _id, picturePath } = chatUser || {};
+
+  return (
+    <>
+      <div className="fixed h-[100vh] w-[95vw] lg:w-[78vw] flex flex-col p-2 border-2 border-[#1e1e1e]">
+        <ChatHeader username={username} picturePath={picturePath} id={_id}/>
+        <MessageContainer />
+        <MessageBar />
+      </div>
+    </>
+  );
+};
+export default ChatContainer;

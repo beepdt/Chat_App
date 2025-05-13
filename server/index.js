@@ -16,7 +16,9 @@ import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import User from "./models/user.js";
 import Post from "./models/post.js";
-
+import setupSocket from "./socket.js";
+import { Server } from "socket.io";
+import http from "http"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,30 +29,32 @@ const app = express();
 app.use(express.json());
 
 
-app.use(cors({
-  origin: [process.env.ORIGIN],
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  credentials:true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Authorization"],
-}));
+//this is for global post handling using express server
+app.use(
+  cors({
+    origin: [process.env.ORIGIN],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Authorization"],
+  })
+);
 
-app.use(bodyParser.json({limit: "30mb", extended: true}));
-app.use(bodyParser.urlencoded ({limit: "30mb", extended: true}));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use(morgan("common"));
-app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
-
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /*FILE STORAGE MULTER */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/assets");
   },
-  filename: function (req, file, cb)  {
+  filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
@@ -58,7 +62,7 @@ const upload = multer({ storage });
 
 /*ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
-app.post("/posts",verifyToken, upload.single("picture"), createPost);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /*ROUTES */
 app.use("/auth", authRoute);
@@ -67,13 +71,23 @@ app.use("/posts", postRoute);
 
 /*DATABASE CONNECTION */
 const PORT = process.env.PORT || 6000;
-mongoose.connect(process.env.MONGO_URL, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true, 
- }).then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+const server = () => {
+  app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
- }).catch((error) => {
-    console.log(`Did not connect ${error}`);    
- });
+}
+
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(server())
+  .catch((error) => {
+    console.log(`Did not connect ${error}`);
+  });
+
+
+  //Socket.io Server Implementation
+const httpServer = http.createServer(app)
+const io = setupSocket(httpServer, app)

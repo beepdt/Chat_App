@@ -22,8 +22,8 @@ import { useSelector } from "react-redux";
 import { HOST } from "@/pages/HomePage/apiClient";
 import { useDispatch } from "react-redux";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { setSelectedChatData } from "@/state/chatSlice";
-import { setSelectedChatType } from "@/state/chatSlice";
+import { setSelectedChatData } from "@/state";
+import { setSelectedChatType } from "@/state";
 
 const NewDm = () => {
   const dispatch = useDispatch();
@@ -33,6 +33,8 @@ const NewDm = () => {
   const [searchUser, setSearchUser] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(true);
+
+  const [openNewContact, setOpenNewContact] = useState(false);
 
   useEffect(() => {
     if (!searchUser.trim()) {
@@ -70,8 +72,15 @@ const NewDm = () => {
     }
   };
 
-  
+  //new contact
+  const selectNewContact = (contact) => {
+    dispatch(setSelectedChatType({selectedChatType: "contact"}));
+    dispatch(setSelectedChatData({selectedChatData: contact}));
+    setSearchResults([]);
+    setOpen(false);
+  };
 
+  
   //const filteredSearch = searchResults.filter()
 
   return (
@@ -140,7 +149,7 @@ const NewDm = () => {
                     </div>
                     <button
                       onClick={() => {
-                        // Handle adding buddy logic here
+                        selectNewContact(user);
                       }}
                       className="text-[#ff4911] hover:text-white pr-4"
                     >
