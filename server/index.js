@@ -69,10 +69,14 @@ app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/posts", postRoute);
 
+  //Socket.io Server Implementation
+const httpServer = http.createServer(app)
+const io = setupSocket(httpServer, app)
+
 /*DATABASE CONNECTION */
 const PORT = process.env.PORT || 6000;
 const server = () => {
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
 }
@@ -88,6 +92,3 @@ mongoose
   });
 
 
-  //Socket.io Server Implementation
-const httpServer = http.createServer(app)
-const io = setupSocket(httpServer, app)

@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
 import { Server } from "socket.io";
+import Message from "./models/messages.js";
 
 const setupSocket = (server, app) => {
   const io = new Server(server, {
@@ -13,6 +14,41 @@ const setupSocket = (server, app) => {
   app.set("io", io);
   const userSocketMap = new Map();
 
+  //send message
+  const sendMessage = async (message) => {
+    const senderSocketId = userSocketMap.get(message.senderId);
+    const receiverSocketId = userSocketMap.get(message.receiverId);
+
+    const createdMessage = await Message.create(message);
+
+    const messageData = await Message.findById(createdMessage._id)
+      .populate("senderId", "_id username email")
+      .populate("receiverId", "_id username email");
+
+    const cleanMessageData = {
+      _id: messageData._id,
+      senderId: messageData.senderId._id, // Extract ID from populated object
+      receiverId: messageData.receiverId._id, // Extract ID from populated object
+      senderUsername: messageData.senderId.username, // Keep useful data
+      receiverUsername: messageData.receiverId.username,
+      message: messageData.message,
+      messageType: messageData.messageType,
+      createdAt: messageData.createdAt,
+      updatedAt: messageData.updatedAt,
+    };
+
+    console.log("Sending clean message data:", cleanMessageData);
+
+    console.log("message sent");
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("receivedMessage", cleanMessageData);
+    }
+    if (senderSocketId) {
+      io.to(senderSocketId).emit("senderMessage", cleanMessageData);
+    }
+  };
+
+  //on disconnect
   const cleanupSocket = (socket) => {
     if (socket.userId) {
       userSocketMap.delete(socket.userId);
@@ -39,6 +75,8 @@ const setupSocket = (server, app) => {
     } else {
       console.log("No user Id");
     }
+
+    socket.on("sendMessage", sendMessage);
 
     socket.on("disconnect", () => cleanupSocket(socket));
   });
