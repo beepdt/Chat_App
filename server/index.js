@@ -12,6 +12,7 @@ import { register } from "./controllers/auth.js";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import postRoute from "./routes/posts.js";
+import messageRoute from "./routes/messages.js"
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import User from "./models/user.js";
@@ -68,6 +69,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/posts", postRoute);
+app.use("/messages", messageRoute);
 
   //Socket.io Server Implementation
 const httpServer = http.createServer(app)

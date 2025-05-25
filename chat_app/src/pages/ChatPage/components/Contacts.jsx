@@ -7,6 +7,9 @@ import { GET_FRIENDS_ROUTE } from "@/pages/HomePage/apiClient";
 import { useEffect } from "react";
 import UserProfileCard from "@/components/reusable/UserProfileCard";
 import NewDm from "./NewDM";
+import { setSelectedChatData, setSelectedChatType } from "@/state";
+import { HOST } from "@/pages/HomePage/apiClient";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Contacts = () => {
   const user = useSelector((state) => state.user);
@@ -14,6 +17,11 @@ const Contacts = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
+
+  const selectNewContact = (contact) => {
+    dispatch(setSelectedChatType({ selectedChatType: "contact" }));
+    dispatch(setSelectedChatData({ selectedChatData: contact }));
+  };
 
   const getFriends = async () => {
     try {
@@ -53,6 +61,29 @@ const Contacts = () => {
             Direct Messages
           </h2>
           <NewDm />
+        </div>
+        <div className="flex flex-col">
+          {friends.map((friends) => (
+            <div
+              onClick={()=>selectNewContact(friends)}
+              key={friends._id}
+              className="flex items-center justify-between p-2 border-b border-t border-[#1e1e1e] hover:bg-[#1e1e1e] cursor-pointer"
+            >
+              <div className="flex items-center gap-4">
+                <Avatar className="w-12 h-12 rounded-full bg-[#FFFAFA]">
+                  <AvatarImage
+                    src={
+                      `${HOST}/assets/${friends.picturePath}` ||
+                      friends.picturePath
+                    }
+                    className="rounded-full"
+                  />
+                </Avatar>
+
+                <span>{`${friends.username}`}</span>
+              </div>
+            </div>
+          ))}
         </div>
         <div className="flex items-center justify-between">
           <h2 className="font-nexus pl-4 pt-2 text-[72px] text-[#ff4911]">

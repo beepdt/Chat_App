@@ -74,13 +74,12 @@ const NewDm = () => {
 
   //new contact
   const selectNewContact = (contact) => {
-    dispatch(setSelectedChatType({selectedChatType: "contact"}));
-    dispatch(setSelectedChatData({selectedChatData: contact}));
+    dispatch(setSelectedChatType({ selectedChatType: "contact" }));
+    dispatch(setSelectedChatData({ selectedChatData: contact }));
     setSearchResults([]);
     setOpen(false);
   };
 
-  
   //const filteredSearch = searchResults.filter()
 
   return (

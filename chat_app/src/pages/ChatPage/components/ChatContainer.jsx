@@ -10,7 +10,7 @@ const ChatContainer = () => {
 
   return (
     <>
-      <div className="fixed h-[100vh] w-[95vw] lg:w-[78vw] flex flex-col p-2 border-2 border-[#1e1e1e]">
+      <div className="fixed h-[100vh]  lg:w-[78vw] flex flex-col p-2 border-2 border-[#1e1e1e]">
         <ChatHeader username={username} picturePath={picturePath} id={_id}/>
         <MessageContainer />
         <MessageBar />

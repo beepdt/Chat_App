@@ -34,7 +34,7 @@ const ChatPage = () => {
            
                 
                 {/*Desktop Layout */}
-                <div className='hidden md:flex  overflow-hidden max-h-[100vh] h-[100vh] space-x-4 '>
+                <div className='hidden md:flex  overflow-hidden min-h-screen space-x-4 '>
                     <div className="flex ">
                         
                             <Contacts/>

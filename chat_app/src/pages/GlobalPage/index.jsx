@@ -32,7 +32,7 @@ const GlobalPage = () => {
     <div className="overflow-y-auto scrollbar-thumb-blue-500 ">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-320 h-25 bg-purple-800/20 blur-3xl rounded-full" />
       <div className="absolute top-70 left-60 w-100 h-50 bg-purple-800/10 blur-3xl rounded-full" />
-      <div className="border-b-2 border-[#1e1e1e] absolute w-full block">
+      <div className="border-b-2 border-[#1e1e1e] absolute w-full  left-0">
         <motion.h1
           initial={{
             color: "#ff00f5",
@@ -46,7 +46,7 @@ const GlobalPage = () => {
             transition: { duration: 0.2 },
           }}
           onClick={handleNavigateHome}
-          className="font-nexus text-[120px] text-[#ff00f5] -mt-8 -mb-6  cursor-pointer max-w-7xl ml-84 "
+          className="font-nexus text-[120px] text-[#ff00f5] leading-none  cursor-pointer pl-8 lg:pl-84 block  "
         >
           Yapper.
         </motion.h1>

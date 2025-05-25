@@ -58,22 +58,22 @@ export const authSlice = createSlice({
     },
 
     addMessageToChat: (state, action) => {
-  const message = action.payload;
-  
-  const normalizedMessage = { ...message };
-  
-  if (state.selectedChatType === "channel") {
-    // Only override if channel-specific properties exist
-    if (message.receiver !== undefined) {
-      normalizedMessage.receiverId = message.receiver;
-    }
-    if (message.sender !== undefined) {
-      normalizedMessage.senderId = message.sender;
-    }
-  }
-  
-  state.selectedChatMessages.push(normalizedMessage);
-},
+      const message = action.payload;
+
+      const normalizedMessage = { ...message };
+
+      if (state.selectedChatType === "channel") {
+        // Only override if channel-specific properties exist
+        if (message.receiver !== undefined) {
+          normalizedMessage.receiverId = message.receiver;
+        }
+        if (message.sender !== undefined) {
+          normalizedMessage.senderId = message.sender;
+        }
+      }
+
+      state.selectedChatMessages.push(normalizedMessage);
+    },
 
     setCloseChat: (state) => {
       state.selectedChatType = "";
@@ -94,5 +94,6 @@ export const {
   setCloseChat,
   setSelectedChatType,
   addMessageToChat,
+  setSelectedChatMessages,
 } = authSlice.actions;
 export default authSlice.reducer;
