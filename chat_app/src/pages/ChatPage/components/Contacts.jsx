@@ -2,7 +2,7 @@ import React, { use } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setFriends } from "@/state";
+import { setChannel, setFriends } from "@/state";
 import { GET_FRIENDS_ROUTE } from "@/pages/HomePage/apiClient";
 import { useEffect } from "react";
 import UserProfileCard from "@/components/reusable/UserProfileCard";
@@ -10,6 +10,7 @@ import NewDm from "./NewDM";
 import { setSelectedChatData, setSelectedChatType } from "@/state";
 import { HOST } from "@/pages/HomePage/apiClient";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import CreateChannel from "./CreateChannel";
 
 const Contacts = () => {
   const user = useSelector((state) => state.user);
@@ -17,10 +18,16 @@ const Contacts = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
+  const channels = useSelector((state) => state.channels);
 
   const selectNewContact = (contact) => {
     dispatch(setSelectedChatType({ selectedChatType: "contact" }));
     dispatch(setSelectedChatData({ selectedChatData: contact }));
+  };
+
+  const selectNewChannel = (channel) => {
+    dispatch(setSelectedChatType({ selectedChatType: "channel" }));
+    dispatch(setSelectedChatData({ selectedChatData: channel }));
   };
 
   const getFriends = async () => {
@@ -40,8 +47,32 @@ const Contacts = () => {
     }
   };
 
+  const getChannels = async () => {
+    try {
+      const response = await fetch(`${HOST}/channel/allChannels/${user._id}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch channels");
+      }
+
+      console.log("Fetched channels:", data);
+      // Optionally update state
+      dispatch(setChannel({ channels: data }));
+    } catch (e) {
+      console.error("Error fetching channel:", e);
+    }
+  };
+
   useEffect(() => {
     getFriends();
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    getChannels();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -65,7 +96,7 @@ const Contacts = () => {
         <div className="flex flex-col">
           {friends.map((friends) => (
             <div
-              onClick={()=>selectNewContact(friends)}
+              onClick={() => selectNewContact(friends)}
               key={friends._id}
               className="flex items-center justify-between p-2 border-b border-t border-[#1e1e1e] hover:bg-[#1e1e1e] cursor-pointer"
             >
@@ -89,9 +120,29 @@ const Contacts = () => {
           <h2 className="font-nexus pl-4 pt-2 text-[72px] text-[#ff4911]">
             Groups
           </h2>
+          <CreateChannel />
+        </div>
+        <div className="flex flex-col">
+          {channels.map((channel) => (
+            <div
+              onClick={() => selectNewChannel(channel)}
+              key={channel._id}
+              className="flex items-center justify-between p-2 border-b border-t border-[#1e1e1e] hover:bg-[#1e1e1e] cursor-pointer"
+            >
+              <div className="flex items-center gap-4">
+                {/* Placeholder avatar */}
+                <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white text-lg font-bold">
+                  {channel.name.charAt(0).toUpperCase()}
+                </div>
+
+                <span>{channel.name}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
   );
 };
 export default Contacts;
+//7:02

@@ -108,3 +108,20 @@ export const searchUserByUsername = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export const getAllUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Fetch all users except the one with the given id
+        const users = await User.find({ _id: { $ne: id } });
+        const formattedUsers= users.map(({ _id, username, picturePath }) => {
+            return { _id, username, picturePath };
+        });
+
+        res.status(200).json(formattedUsers);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Server error while fetching users" });
+    }
+};

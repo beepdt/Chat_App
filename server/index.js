@@ -13,6 +13,7 @@ import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import postRoute from "./routes/posts.js";
 import messageRoute from "./routes/messages.js"
+import channelRoute from "./routes/channel.js"
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import User from "./models/user.js";
@@ -70,6 +71,7 @@ app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/posts", postRoute);
 app.use("/messages", messageRoute);
+app.use("/channel",channelRoute)
 
   //Socket.io Server Implementation
 const httpServer = http.createServer(app)

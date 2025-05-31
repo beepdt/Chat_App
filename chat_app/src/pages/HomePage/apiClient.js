@@ -7,7 +7,8 @@ export const GET_USER_ROUTE = `${HOST}/users`;
 export const GET_FRIENDS_ROUTE = `${HOST}/users/friends`;
 export const PATCH_FRIEND_ROUTE = `${HOST}/users`;
 export const PATCH_LIKE_ROUTE = `${HOST}/posts`;
-export const GET_MESSAGES_ROUTE = `${HOST}/messages`
+export const GET_MESSAGES_ROUTE = `${HOST}/messages`;
+export const GET_ALL_USERS = `${HOST}/users/all`;
 
 
 export const apiClient = axios.create({

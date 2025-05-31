@@ -8,6 +8,7 @@ const initialState = {
   selectedChatType: null, // List of contact objects { id, name, avatar, lastMessage, unreadCount }
   selectedChatData: null, // Messages keyed by contactId: { [contactId]: [ { id, senderId, text, timestamp } ] }
   selectedChatMessages: [],
+  channels:[],
 };
 
 export const authSlice = createSlice({
@@ -80,6 +81,22 @@ export const authSlice = createSlice({
       state.selectedChatData = null;
       state.selectedChatMessages = [];
     },
+
+    setChannel: (state,action) => {
+      state.channels = action.payload.channels;
+    },
+    addChannel:(state,action)=>{
+      state.channels.push(action.payload.channel);
+    },
+    updateChannel: (state, action) => {
+      // Payload: { channel: { id, name, members, lastMessage, unreadCount } }
+      state.channels = state.channels.map((channel) => {
+        if (channel.id === action.payload.channel.id) {
+          return action.payload.channel;
+        }
+        return channel;
+      });
+    },
   },
 });
 
@@ -95,5 +112,8 @@ export const {
   setSelectedChatType,
   addMessageToChat,
   setSelectedChatMessages,
+  addChannel,
+  updateChannel,
+  setChannel,
 } = authSlice.actions;
 export default authSlice.reducer;
