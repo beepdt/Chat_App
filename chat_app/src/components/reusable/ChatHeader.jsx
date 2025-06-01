@@ -28,7 +28,7 @@ const ChatHeader = ({ username, picturePath, id, name }) => {
           />
         </div>
         <div className="flex items-center justify-center gap-5 space-x-4">
-          <Avatar className="h-14 w-14 rounded-full bg-[#FFFAFA]">
+          {/*<Avatar className="h-14 w-14 rounded-full bg-[#FFFAFA]">
             <AvatarImage
               src={`${HOST}/assets/${picturePath}` || user?.picturePath}
             />
@@ -40,7 +40,7 @@ const ChatHeader = ({ username, picturePath, id, name }) => {
             )}
            
             </AvatarFallback>
-          </Avatar>
+          </Avatar>*/}
           {name ? (
             <h1
               onClick={() => navigate(`/profile/${id}`)}
