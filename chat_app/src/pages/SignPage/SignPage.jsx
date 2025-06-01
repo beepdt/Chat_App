@@ -14,9 +14,7 @@ const SignPage = () => {
     return (
         <div className="flex max-w-full w-full  mx-auto relative z-10 gap-4 p-4 md:py-8 md:pr-4 bg-black items-center justify-center min-h-[800px]">
             {/* Image Container - Becomes background on mobile */}
-            <div className="absolute inset-0 rounded-none overflow-hidden md:rounded-lg md:relative md:w-1/2 md:pl-4 z-0">
-                <LiquidBlobsBackground/>
-            </div>
+           
             
             {/* Form Container - Overlay on mobile */}
             <div className="w-full  md:w-1/2 bg-transparent md:bg-white rounded-lg z-10 overflow-y-auto items-center justify-center absolute top-4">
