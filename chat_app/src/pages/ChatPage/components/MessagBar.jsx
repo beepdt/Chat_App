@@ -78,6 +78,19 @@ const MessageBar = () => {
         // Clear input
         setMessage("");
         console.log("Message sent", messagePayload);
+      } else if (chatType === "channel") {
+        const messagePayload = {
+          senderId: user._id,
+          message: message.trim(), // Use 'content' instead of 'message'
+          channelId: chatData._id,
+          messageType: "text",
+          username: user.username,
+        };
+         socket.emit("sendChannelMessage", messagePayload);
+
+         
+        setMessage("");
+        console.log("Message sent", messagePayload);
       }
     } catch (error) {
       console.error("Error sending message:", error);

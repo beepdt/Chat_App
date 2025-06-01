@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { Server } from "socket.io";
 import Message from "./models/messages.js";
+import Channel from "./models/channel.js";
 
 const setupSocket = (server, app) => {
   const io = new Server(server, {
@@ -48,6 +49,72 @@ const setupSocket = (server, app) => {
     }
   };
 
+  const ChannelMessage = async (content) => {
+    try {
+      const { senderId, channelId, message, messageType, username } = content;
+
+      // Input validation
+      if (!senderId || !channelId || !message?.trim()) {
+        throw new Error(
+          "Missing required fields: senderId, channelId, or message"
+        );
+      }
+
+      // Create the message in database
+      const createdMessage = await Message.create({
+        senderId: senderId,
+        receiverId: null,
+        message: message.trim(),
+        messageType: messageType || "text",
+        username,
+      });
+
+      // Populate sender information
+      const messageData = await Message.findById(createdMessage._id).populate(
+        "senderId",
+        "_id username email picturePath"
+      );
+
+      // Clean message data for emission
+      const cleanMessageData = {
+        _id: messageData._id,
+        senderId: messageData.senderId._id, // Extract ID from populated object
+        senderUsername: messageData.senderId.username, // Keep useful data
+        message: messageData.message,
+        messageType: messageData.messageType,
+        createdAt: messageData.createdAt,
+        updatedAt: messageData.updatedAt,
+      };
+
+      console.log("Sending channel message:", cleanMessageData);
+
+      // Update channel's last activity
+      await Channel.findByIdAndUpdate(channelId, {
+        $push: { messages: createdMessage._id },
+      });
+
+      const channel = await Channel.findById(channelId).populate("members admin");
+      const finalData = { ...messageData._doc, channelId: channel._id };
+
+      
+
+      if (channel && channel.members) {
+        channel.members.forEach((member) => {
+          const memberSocketId = userSocketMap.get(member._id.toString());
+          if (memberSocketId) {
+            io.to(memberSocketId).emit("receiveChannelMessage", finalData);
+          }
+        });
+        const adminSocketId = userSocketMap.get(channel.admin._id.toString());
+          if (adminSocketId) {
+            io.to(adminSocketId).emit("receiveChannelMessage", finalData);
+          }
+      }
+    } catch (error) {
+      console.error("Error sending channel message:", error);
+    }
+  };
+
   //on disconnect
   const cleanupSocket = (socket) => {
     if (socket.userId) {
@@ -77,6 +144,7 @@ const setupSocket = (server, app) => {
     }
 
     socket.on("sendMessage", sendMessage);
+    socket.on("sendChannelMessage", ChannelMessage);
 
     socket.on("disconnect", () => cleanupSocket(socket));
   });

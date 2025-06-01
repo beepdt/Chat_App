@@ -39,6 +39,15 @@ export const SocketProvider = ({ children }) => {
       dispatch(addMessageToChat(message));
     }
   };
+  const handleChannelMessage = (message) => {
+    if (!chatType || !chatData?._id || !user?._id) return;
+    const channelId = chatData._id;
+    const isMessageForCurrentUser = channelId === message.channelId;
+    if(isMessageForCurrentUser){
+      console.log("message received", message);
+      dispatch(addMessageToChat(message));
+    }
+  };
   useEffect(() => {
     if (user) {
       const newSocket = io(HOST, {
@@ -51,6 +60,7 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on("receivedMessage", handleReceivedMessage);
+      newSocket.on("receiveChannelMessage", handleChannelMessage);
 
       return () => {
         newSocket?.disconnect();
